@@ -1,0 +1,90 @@
+<div *ngIf="!hasResults">
+  <mat-card>
+    <mat-card-title>
+      {{'no_referenced_restaurants_found' | translate}}
+    </mat-card-title>
+    <mat-card-content>
+      {{'add_restaurant_tip' | translate}}
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button class="action" routerLink="/restaurants" routerLinkActive="active">
+        {{'places_lookup' | translate}}</button>
+      <button mat-button class="action" (click)="displayRestaurants('fromDB')">
+        {{'see_referenced_results' | translate}}</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<div *ngIf="selectedRes.length > 0">
+  <div *ngIf="selectedResType && selectedResType == 'fromDB'">
+    <span class="infos">
+      {{'filter_results_by_type' | translate}}
+    </span>
+  </div>
+  <div *ngIf="selectedResType && selectedResType != 'fromDB'" class="selectedType">
+    <mat-divider></mat-divider>
+    <br>
+    {{selectedResType}}
+    <br>
+    <mat-divider></mat-divider>
+  </div>
+  <br>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let restaurant of selectedRes" [expanded]="panelOpenState"
+      (mouseover)="getPositionOnMap(restaurant)" id="{{restaurant.id}}">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="restaurant-title">
+          {{restaurant.name}}
+        </mat-panel-title>
+        <mat-panel-description>
+          <mat-chip-list>
+            <mat-chip selected class="chip-first" (click)="displayRestaurants(restaurant.type)">{{restaurant.type}}
+            </mat-chip>
+            <mat-chip selected class="chip-second"> {{restaurant.average}} /5</mat-chip>
+          </mat-chip-list>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="sub-header">
+        <p class="restaurant-address">{{restaurant.address}}</p>
+        <button mat-flat-button class="white">
+          <mat-icon (click)=toggleComment(restaurant)>create</mat-icon>
+        </button>
+      </div>
+      <div class="comment-area" *ngIf="commentAreaDisplay">
+        <mat-card class="example-container comment" *ngIf="!restaurant.hasPosted">
+          <mat-card-header>
+            <mat-card-title>{{'add_comment' | translate}}</mat-card-title>
+          </mat-card-header>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <input matInput placeholder="Votre prénom" required [(ngModel)]="comment.user" id="name">
+          </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <textarea matInput required
+              placeholder="Exprimez en quelques mots ce qui vous a plu ou déplu dans ce restaurant"
+              [(ngModel)]="comment.text" id="comment"></textarea>
+          </mat-form-field>
+          <ngx-stars size="5" color="#FFC145" initialStars="3" (ratingOutput)="onRatingSet($event)"
+            [(ngModel)]="comment.notation"></ngx-stars>
+          <button mat-flat-button class="second" (click)="addComment(restaurant, $event)">Poster</button>
+        </mat-card>
+        <mat-card *ngIf="restaurant.hasPosted">
+          <mat-card-header>
+            <mat-card-title>Il semblerait que vous ayez déjà posté un avis sur ce restaurant, merci!
+            </mat-card-title>
+          </mat-card-header>
+        </mat-card>
+      </div>
+      <mat-card *ngFor="let rating of restaurant.ratings" class="comments" (click)="togglePanel()">
+        <mat-card-header>
+          <div mat-card-avatar></div>
+          <mat-card-title>{{rating.user}}</mat-card-title>
+          <mat-card-subtitle>{{rating.notation}}/5</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          {{rating.comment}}
+        </mat-card-content>
+      </mat-card>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <button mat-flat-button class="validate" *ngIf="selectedResType && selectedResType != 'fromDB'"
+    (click)="displayRestaurants('fromDB')">{{'remove_filter' | translate}}</button>
+</div>

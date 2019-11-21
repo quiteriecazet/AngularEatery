@@ -1,0 +1,46 @@
+<div class="content" *ngIf="restaurant.name">
+
+  <div class="restaurant-infos">
+    <div>
+      <mat-card-header>
+        <mat-card-title>
+          {{restaurant.name}}
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{restaurant.vicinity}}
+        </mat-card-subtitle>
+        <button mat-flat-button class="third"
+          onclick="window.location.href ='restaurant.website'">{{'website' | translate}}</button>
+
+      </mat-card-header>
+      <mat-card-content>
+        <mat-card *ngIf="restaurant.opening_hours">
+          <span *ngFor="let weekday of restaurant.opening_hours.weekday_text">{{weekday}}<br></span>
+        </mat-card>
+        <p *ngIf="restaurant && !restaurant.opening_hours">{{'no_timetable_found' | translate}}</p>
+      </mat-card-content>
+    </div>
+
+    <div>
+      <div *ngFor="let image of restaurant.photos">
+        <img src={{image}} class="photo">
+      </div>
+    </div>
+
+  </div>
+
+  <mat-card *ngFor="let review of restaurant.reviews" class="comments" (click)="togglePanel()">
+    <mat-card-header>
+      <mat-card-title>{{review.author_name}}</mat-card-title>
+      <mat-card-subtitle>{{review.rating}}{{'notation' | translate}} -
+        <span>{{review.relative_time_description}}</span><br></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      {{review.text}}
+    </mat-card-content>
+  </mat-card>
+
+</div>
+<div *ngIf="!restaurant.name" class="spinner">
+  <mat-spinner></mat-spinner>
+</div>

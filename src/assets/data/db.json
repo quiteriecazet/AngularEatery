@@ -1,0 +1,300 @@
+{
+    "restaurants": [
+        {
+            "id": 1,
+            "name": "Chez Meh",
+            "address": "37 Boulevard de Verdun, 35000 Rennes",
+            "lat": 48.1154,
+            "long": -1.6918600000000197,
+            "type": "Thaï",
+            "description": "Plats traditionnels laotiens et thaïs dans une petite salle sobre et élégante décorée d'éléments asiatiques.",
+            "ratings": [
+                {
+                    "user": "José",
+                    "notation": 5,
+                    "comment": "Cette adresse vaut surtout le détour pour son incroyable décor. Isolée du centre, on y est transporté dans un intérieur feutré et plongé dans l'ombre. Ombrelles et lanternes de papier se disputent l'espace relevé de touches d'or, occultant des fresques bouddhistes. Si le menu semble élevé compte tenu de la saveur dans l'assiette, l'endroit offre une réelle touche exotique et culturelle."
+                },
+                {
+                    "user": "Bernard",
+                    "notation": 4,
+                    "comment": "Cuisine thaïlandaise et laotienne vraiment originale et différente de ce qu'on trouve habituellement. Les propriétaires thaïlandaises sont aux fourneaux et vous préparent des plats maison. Serveur sympathique. Réservation impérative car la salle est toute petite."
+                },
+                {
+                    "user": "Martine",
+                    "notation": 5,
+                    "comment": "Vous cherchez un resto asiatique d'exception ? c'est chez Meh qu'il faut aller ! Outre la cuisine délicieuse, le cadre est magnifique et le personnel aux petits soins."
+                },
+                {
+                    "user": "Guy",
+                    "notation": 4,
+                    "comment": "J'adore ! Tout est bien! L'ambiance, la cuisine, le service! Je recommande"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Au Marché des Lices",
+            "address": "3, place du Bas-des-Lices 35000 Rennes",
+            "lat": 48.1124215,
+            "long": -1.6851773,
+            "type": "Crêperie",
+            "description": "Un rutilant hommage à la crêperie traditionnelle avec ses murs en pierre et ses nappes à carreaux.",
+            "ratings": [
+                {
+                    "user": "Zozo",
+                    "notation": 4,
+                    "comment": "Cette crêperie a un charme fou, on y bien comme à la maison."
+                },
+                {
+                    "user": "Agnès",
+                    "notation": 5,
+                    "comment": "Je recommande cette excellent crêperie traditionnelle!"
+                },
+                {
+                    "user": "Serge",
+                    "notation": 3,
+                    "comment": "Tres bon accueil. Galettes et crêpes originales, copieuses et savoureuses. Cadre sympathique."
+                },
+                {
+                    "user": "Jeannot",
+                    "notation": 4,
+                    "comment": "Bonne crêperie avec une jolie carte de crêpes sucrées et salées. Les prix sont cohérents avec la qualité."
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Le Bistrot des Remparts",
+            "address": "16, rue Nantaise 35000 Rennes",
+            "lat": 48.1118037,
+            "long": -1.6850156,
+            "type": "Cuisine régionale",
+            "description": "Le bistrot des remparts propose une cuisine bistronomique de qualité à partir de produits frais et locaux.",
+            "ratings": [
+                {
+                    "user": "Léa",
+                    "notation": 5,
+                    "comment": "Dans le Vieux Rennes, proche des Portes Mordelaises, le bistrot des Remparts est une bonne surprise. Les plats gorgés de fraîcheur évoluent au fil des saisons : poisson du marché, sauté de veau, parmentier de volaille... "
+                },
+                {
+                    "user": "Ben",
+                    "notation": 4,
+                    "comment": "Très bon restaurant, la cuisine est très bonne, les produits sont frais. Plein de choix pour la carte des vins, ce qui est très bien quand on s'y connait."
+                },
+                {
+                    "user": "Mario",
+                    "notation": 4,
+                    "comment": "Belle découverte. La cuisine est délicieuse, j'ai choisi un risotto de champignons avec des saint Jacques snackées et une pavlova servie avec sorbet ananas fait maison c'était vraiment excellent. "
+                },
+                {
+                    "user": "Valentin",
+                    "notation": 5,
+                    "comment": "Cuisine du marché délicieuse. Petites attentions très agréables et présentation très soignée. La déco est pleine de fraicheur et les fauteuils super confortables. Nous avons bcp aimé les propositions de vins originales et bien choisies."
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "name": "L'abri du Marché",
+            "address": "12, place des Lices 35000 Rennes",
+            "lat": 48.1134716,
+            "long": -1.6825495,
+            "type": "Cuisine régionale",
+            "description": "On vient à l'Abri du Marché pour sa décoration d'antan (cartes postales authentiques, plaques émaillées d'une époque révolue), ses recettes de moules plus divines les unes que les autres, ses plats du marché ou encore ses galettes au bon goût de sarrasin bio. ",
+            "ratings": [
+                {
+                    "user": "Kiki",
+                    "notation": 5,
+                    "comment": "Allez-y. Tout simplement... Il n'y a rien à ajouter, la simplicité et l'authentique suffisent."
+                },
+                {
+                    "user": "Coco",
+                    "notation": 4,
+                    "comment": "Ce restaurant est très bien situé, il nous propose de très bonne galettes et différents plats de moules en pleine saison. Le prix est très raisonnable. Je recommande."
+                },
+                {
+                    "user": "Charlotte",
+                    "notation": 4,
+                    "comment": "On adore! On ne rate pas une occasion d'y passer, surtout à la saison des moules."
+                },
+                {
+                    "user": "Hector",
+                    "notation": 5,
+                    "comment": "L'abri du marché se trouve en plein centre juste à côté de la place des Lices. Service cordial et rapide. La carte propose non seulement les classiques galettes et des moins classiques galettes, mais aussi des moules, et quelques plats à base de viande et accompagnement."
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "name": "Bistrot L'Arrivée",
+            "address": "35, boulevard Beaumont 35000 Rennes",
+            "lat": 48.1039,
+            "long": -1.6738599999999906,
+            "type": "Brasserie",
+            "description": "On y vient à toute heure se sustenter d'un superbe plateau de fromages ou d'une planche de charcuterie. Au déjeuner, l'ardoise affiche le plat du jour, la quiche de Maminou ou la tartine de Moumoune.",
+            "ratings": [
+                {
+                    "user": "Nabil",
+                    "notation": 5,
+                    "comment": "Si vous désirez déguster de très bonnes choses, n'allez pas ailleurs !! C'est l'endroit rêvé pour consommer de délicieuses choses préparées de différentes façons : au camembert, normandes, à la crème, aux échalotes, au beurre persillé..."
+                },
+                {
+                    "user": "Lila",
+                    "notation": 3,
+                    "comment": "On est un peu perdu en sortant de la gare. Sortie Nord, on prend à gauche et on découvre sur le boulevard ce petit bistrot jeune et franchouillard très sympa. pas de la grande cuisine mais un bel accueil."
+                },
+                {
+                    "user": "Françoise",
+                    "notation": 4,
+                    "comment": "Un petit bistrot où on a l'impression d'arriver dans un lieu déjà familier et c'est très agréable dans un quartier aussi impersonnel que la gare. Très bonne impression de Rennes en arrivant ici pour la première fois."
+                },
+                {
+                    "user": "Alex",
+                    "notation": 5,
+                    "comment": "Un lieu très agréable, on se croirait à la maison. Très bon accueil et cuisine de qualité."
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "name": "Holen",
+            "address": "2, rue des Carmes 35000 Rennes",
+            "lat": 48.1083454,
+            "long": -1.6762611,
+            "type": "Gastronomique",
+            "description": "Dans ce nouveau restaurant à l'ambiance hygge, on peut venir boire un thé sur le sofa et commencer à lire La cuisine des pays nordiques de Magnus Nilsson à la lueur des bougies. Mais rapidement, on vient découvrir la cuisine de Tugdual Debethune. Quels ques soient les moments choisis, ici on croque la Bretagne.",
+            "ratings": [
+                {
+                    "user": "Daniel",
+                    "notation": 5,
+                    "comment": "La première chose qu'on retient c'est que c'est délicieux. Tout est cuisiné avec un profond respect des produits. Les saveurs sont recherchées, les cuissons parfaitement maîtrisées. Service encore un peu tâtonnant. Cadre intimiste."
+                },
+                {
+                    "user": "Amaury",
+                    "notation": 5,
+                    "comment": "Une cuisine raffinée, avec de belles saveurs et une belle technique. Le cadre est cosy, chaleureux et on s’y sent très bien. Je recommande sans hésiter le restaurant Holen."
+                },
+                {
+                    "user": "Nina",
+                    "notation": 5,
+                    "comment": "Un restaurant gastronomique à tester, sans aucun doute ! J'y suis allée trois fois, et c'était toujours un vrai régal. Outre la décoration très jolie et le service impeccable, les plats sont à tomber par terre."
+                },
+                {
+                    "user": "Bert",
+                    "notation": 5,
+                    "comment": "Nous sommes allés trois fois dîner dans ce restaurant depuis son ouverture récente, en couple et avec des amis. Tous ont été conquis... une cuisine raffinée et originale (magnifique dessert à la betterave), un service agréable, un cadre apaisant (dans la salle principale). À conseiller pour un dîner d’exception!"
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "name": "Monsieur Yak",
+            "address": "10 rue de la Chalotais, 35000, Rennes",
+            "lat": 48.109434,
+            "long": -1.6815813,
+            "type": "Thaï",
+            "description": "Monsieur Yak est avant tout une Expérience culinaire, un mélange de traditions, de saveurs, de couleurs, de textures…Un lieu de respect des traditions Thaïlandaises où l’imagerie est très présente. Les Yaks, grands esprits de la nature et protecteurs des temples, inspirent ce lieu si surprenant. A la fois calme et voluptueux où l’on aime se loger comme dans un cocon, il peut se révéler brut et puissant. Le Chef puise ses recettes dans l’univers de la gastronomie authentique, en suivant les influences culturelles de l’Asie du Sud-Est, tout en modernisant ce véritable art qu’est la cuisine Thaïlandaise. Le Chef suit la philosophie de cet art culinaire en prenant en compte le respect du corps et de l’esprit, l’harmonie des saveurs, des couleurs, du croquant, de la brillance…",
+            "ratings": [
+                {
+                    "user": "Aldo",
+                    "notation": 5,
+                    "comment": "Le restaurant est magnifique, avec cette petite ambiance thaïlandaise très agréable et élégant à la fois. Quant aux plats ils sont frais et vraiment délicieux, fait avec finesse. Pensez à réserver le restaurant est souvent complet!"
+                },
+                {
+                    "user": "Pia",
+                    "notation": 5,
+                    "comment": "Lieu convivial .Carte variée et originale. Le service est très agréable et plutôt rapide. Pour un dîner réservation très fortement conseillée."
+                },
+                {
+                    "user": "Eric",
+                    "notation": 4,
+                    "comment": "Nous sommes allés dans ce restaurant manger avec des amis, nous avons tous très bien mangés. Les produits sont frais et bien préparés , le service est parfait."
+                },
+                {
+                    "user": "Hippolyte",
+                    "notation": 4,
+                    "comment": "Ls restaurant est joliement decoré avec quelques tables dans des cages a oiseaux. Nous avons très très bien mangé, les service parfait et cadre agréable."
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "name": "Indien Express",
+            "address": "14 Contour Saint Aubin, 35000, Rennes",
+            "lat": 48.1153745,
+            "long": -1.6808161,
+            "type": "Indien",
+            "description": "A l'angle de la place Saint-Anne et de la rue de Saint-Malo, une enseigne au portrait d'un Hindou à la barbe blanche vous attire dans un cadre simple, mais qui fait son effet. L'ambiance est au rendez-vous et les conseils du chef vous feront hésiter entre le curry d'épinards, le poulet tikka massala ou encore les crevettes Biryani. Idéal avant une sortie rennaise dans le centre-ville.",
+            "ratings": [
+                {
+                    "user": "Romaric",
+                    "notation": 4,
+                    "comment": "Très bon restaurant indien où l’on est vraiment pas à avoir déçu! Bon choix de plats avec de vraies saveurs authentiques. Là rapport qualité prix est très satisfaisant. J’y reviendrai !"
+                },
+                {
+                    "user": "Nariman",
+                    "notation": 4,
+                    "comment": "Ayant passé quelques semaines en Inde, nous avons eu une soirée pleine de bons souvenirs en dînant dans ce restaurant. Quelles sauveurs agréables ! Les prix sont très corrects. "
+                },
+                {
+                    "user": "Patrick",
+                    "notation": 3,
+                    "comment": "Bon resto indien, nous nous sommes régalés avec des plats vraiment goûteux, mais les prix sont chers pour Rennes (4€ le jus de mangue, 12/13€ le plat...) et nous avons trouvé le service long."
+                },
+                {
+                    "user": "Jim",
+                    "notation": 4,
+                    "comment": "Je rejoins les amis au restaurant indien, sans grande conviction pour cette cuisine après autre expérience... Eh bien je suis réconcilié ! un enchantement gustatif (pan fromage, tikka massala, boisson typique...) un accueil chaleureux, bref un RDV rennais à ne pas manquer!"
+                }
+            ]
+        }
+    ],
+
+    "types": [
+        {
+           "name": "Cambodgien"
+        },
+        {
+           "name": "Indien"
+        },
+        {
+           "name": "Traditionnel"
+        },
+        {
+           "name": "Brasserie"
+        },
+        {
+           "name": "Crêperie"
+        },
+        {
+           "name": "Africain"
+        },
+        {
+           "name": "Chinois"
+        },
+        {
+           "name": "Japonais"
+        },
+        {
+           "name": "Italien"
+        },
+        {
+           "name": "Burger"
+        },
+        {
+           "name": "Kebab"
+        },
+        {
+           "name": "Libanais"
+        },
+        {
+           "name": "Afghan"
+        },
+        {
+           "name": "Scandinave"
+        },
+        {
+           "name": "Slave"
+        }
+    ]
+}

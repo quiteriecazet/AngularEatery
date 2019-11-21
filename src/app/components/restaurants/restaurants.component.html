@@ -1,0 +1,80 @@
+<div *ngIf="!showDetails" class="main-container">
+  <div class="header">
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <mat-button-toggle (click)="searchAround()">
+          <mat-icon matSuffix>play_arrow</mat-icon>
+          Lancer la recherche
+        </mat-button-toggle>
+        <mat-button-toggle-group class="restaurants-toggle">
+          <mat-button-toggle class="sorting">
+            Tri par :
+          </mat-button-toggle>
+          <mat-button-toggle (click)="sortByRatingsTotal(results)">
+            <mat-icon matSuffix>whatshot</mat-icon>
+            <span class="legend">{{'global_notation' | translate}}</span>
+          </mat-button-toggle>
+          <mat-button-toggle (click)="sortByRatingsTotal(results)">
+            <mat-icon matSuffix>people</mat-icon>
+            <span class="legend">{{'amount_comments' | translate}}</span>
+          </mat-button-toggle>
+          <mat-button-toggle (click)="sortByPriceRange(results)">
+            <mat-icon matSuffix>money</mat-icon>
+            <span class="legend">{{'price' | translate}}</span>
+          </mat-button-toggle>
+          <mat-button-toggle (click)="sortByDistance(results)">
+            <mat-icon matSuffix>directions_walk</mat-icon>
+            <span class="legend">{{'distance' | translate}}</span>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </mat-toolbar-row>
+      <mat-toolbar-row>
+        <mat-form-field class="restaurant-input">
+          <input matInput placeholder="{{'restaurant_search' | translate}}" id="location" [(ngModel)]="value">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="results-header">
+      <span mat-subheader *ngIf="results && results.length <= 1">{{'we_found' | translate}} {{results.length}}
+        {{'result' | translate}}</span>
+      <span mat-subheader *ngIf="results && results.length > 1">{{'we_found' | translate}} {{results.length}}
+        {{'results' | translate}}</span>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="overflow-container">
+      <div class="overflow-content">
+        <mat-list>
+          <mat-list-item *ngFor="let restaurant of results" (click)="getDetails(restaurant)"
+            (mouseover)="getPositionOnMap(restaurant)">
+            <div mat-line>
+              <div class="restaurant-title">{{restaurant.name}}</div>
+              <div class="rating">
+                <mat-chip-list>
+                  <mat-chip selected class="chip-second"> {{restaurant.rating}}{{'notation' | translate}}</mat-chip>
+                  <mat-chip selected class="chip-third">{{restaurant.user_ratings_total}} {{'comments' | translate}}
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </div>
+            <p mat-line class="address">{{restaurant.vicinity}}</p>
+            <span class="distance" *ngIf="restaurant.distanceInKm">{{'distance_prefix' | translate}}
+              {{restaurant.distanceInKm}}</span>
+            <span class="distance" *ngIf="!restaurant.distanceInKm">{{'distance_prefix' | translate}}
+              {{restaurant.distance}}</span>
+            <hr>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showDetails" class="container">
+  <div class="upper-details">
+    <button mat-flat-button class="validate" (click)="goBackToResults()">Retour aux résultats</button>
+    <button mat-flat-button class="second">Ajouter à la sélection</button>
+  </div>
+  <app-restaurant-detail></app-restaurant-detail>
+</div>

@@ -1,0 +1,92 @@
+@import "../../../assets/sass/variables.scss";
+
+mat-list-item,
+.upper-details {
+  display: flex;
+}
+
+.rating,
+.upper-details {
+  justify-content: flex-end;
+}
+
+mat-list-item:hover {
+  background-color: $green;
+  cursor: pointer;
+  color: white;
+}
+
+.priceMenu {
+  font-size: 12px;
+}
+
+.distance {
+  font-size: 0.8em;
+}
+
+.photo {
+  height: 200px;
+  width: auto;
+}
+
+.legend {
+  font-size: 0.8em;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1;
+}
+
+span {
+  font-weight: 900;
+  font-size: 1.15em;
+}
+
+mat-toolbar-row {
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  height: 90px !important;
+}
+
+.sorting {
+  background: $yellow;
+  font-weight: 700;
+}
+
+.restaurant-input {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.upper-details {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px;
+}
+
+.upper-details :first-child {
+  margin-right: 20px;
+}
+
+
+mat-toolbar {
+  position: static;
+}
+
+
+@media screen and (min-width: 1500px) and (max-width: 1800px) {
+  .main-container {
+    width: 750px;
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  .main-container {
+    width: 900px;
+  }
+}

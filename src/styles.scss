@@ -1,0 +1,197 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
+
+@import "assets/sass/variables.scss";
+
+
+body, html, #gmap_container {
+    margin: 0px !important;
+    width: 100%;
+    height: 100%;
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+:focus {
+    outline: none !important;
+}
+
+* {
+    font-family: 'Lato', sans-serif;
+}
+
+a, a:visited, a:hover {
+    text-decoration: none;
+    color: black;
+
+}
+
+.mat-icon {
+    cursor: pointer;
+    color:  $yellow;
+    margin: 2%;
+}
+
+.white-icon {
+    color:black;
+}
+
+.rst {
+    z-index: 10000000 !important;
+    position: absolute !important;
+    margin: 90px;
+}
+
+.mat-card-title {
+    font-weight: 700;
+}
+
+.mat-input-element {
+    caret-color:  $blue !important;
+}
+
+button.action {
+    text-transform: uppercase;
+    color: $blue;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+button.flat {
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0,5px;
+    background-color: $blue;
+    text-transform: uppercase;
+}
+
+.restaurant-address {
+    font-size: 12px;
+    letter-spacing: 0,07em;
+    color: $yellow;
+    font-weight: 500;
+}
+
+.header_menu {
+    cursor: pointer;
+}
+
+.infos {
+    font-size: 15px;
+    color: $blue;
+    text-align: justify;
+    margin: 2%;
+}
+
+.mat-chip {
+    cursor: pointer !important;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.mat-button-toggle-group {
+    cursor: pointer;
+    color: $blue;
+    font-weight: bold;
+    height: 60px;
+}
+
+.restaurants-toggle {
+
+    .mat-button-toggle-label-content {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        line-height: 28px !important;
+    }
+
+    .mat-button-toggle-appearance-standard {
+        line-height: 28px !important;
+    }
+}
+  
+.mat-button-toggle-group, .mat-button-toggle-standalone {
+    justify-content: space-around;
+}
+
+.chip-first {
+    background-color: $green !important;
+}
+
+.chip-second {
+    background-color: $yellow !important;
+}
+
+.chip-third {
+    background-color: $red !important;
+}
+
+.chip-fourth {
+    background-color: $blue !important;
+}
+
+.restaurant-title {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+mat-list-item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+  
+.example-full-width {
+    width: 100%;
+  }
+
+
+button.validate {
+    background-color: $yellow;
+    color: white;
+}
+
+button.second {
+    background-color: $blue;
+    color: white;
+}
+
+button.third {
+    background-color: $red;
+    color: white;
+}
+
+button.white {
+    background-color: white;
+    color: $blue;
+}
+
+.mat-menu-item.ng-star-inserted {
+   
+    font-weight: 700;
+
+    &:hover {
+       background-color: $yellow;
+    }
+}
+
+@media screen and (min-width: 100px) and (max-width: 767px) {
+    mat-grid-tile {
+        font-size: 10px;
+    }
+
+    .logo {
+        width: 23% !important;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+    mat-grid-tile {
+        font-size: 16px;
+    }
+
+    .logo {
+        width: 16% !important;
+    }
+}

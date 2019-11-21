@@ -1,0 +1,54 @@
+@import "../../../assets/sass/variables.scss";
+
+.restaurant-infos {
+  display: flex;
+}
+
+.upper-details {
+  display: flex;
+}
+
+img {
+  width: 100%;
+}
+
+.restaurant-infos > div {
+  min-width: 50%;
+}
+
+mat-card-title {
+  color: $yellow;
+}
+
+mat-card-subtitle {
+  color: $red;
+}
+
+mat-card {
+  margin: 10px;
+  padding: 10px !important;
+  font-weight: 700;
+}
+
+mat-card span {
+  color: $blue;
+}
+
+mat-card-content {
+  font-size: 0.95em;
+  line-height: 1.6em;
+}
+
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: $red !important;
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-card-header button {
+    align-self: end;
+}

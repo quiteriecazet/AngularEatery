@@ -1,0 +1,48 @@
+<div class="infos">{{'add_form_infos' | translate}}</div>
+<div class="add-form">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Adresse" class="form-control" id="location" [(ngModel)]="locationValue"
+      name="location">
+    <mat-icon matSuffix>place</mat-icon>
+    <mat-hint>{{'add_restaurant' | translate}}</mat-hint>
+  </mat-form-field>
+
+  <form #restaurantForm="ngForm" *ngIf="!isConfirmation">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Nom du restaurant" class="form-control" id="name" [(ngModel)]="restaurant.name"
+        name="name" required>
+    </mat-form-field>
+      <button mat-flat-button class="second" [matMenuTriggerFor]="menu" [(ngModel)]="restaurant.type" name="type"
+        required ngDefaultControl>{{foodType}}</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let type of types" (click)="isSelected(type)" id="type">
+          {{type.name}}</button>
+      </mat-menu>
+    <mat-form-field class="example-full-width textarea">
+      <textarea matInput placeholder="Description" class="form-control" id="description"
+        [(ngModel)]="restaurant.description" name="description" required minlength="10"></textarea>
+      <mat-hint>{{'hint_caracters_numbers' | translate}}</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="example-full-width textarea">
+      <textarea matInput placeholder="Mon commentaire" class="form-control" id="comment"
+        [(ngModel)]="restaurant.comment" name="comment" required minlength="10"></textarea>
+      <mat-hint>{{'hint_caracters_numbers' | translate}}</mat-hint>
+    </mat-form-field>
+    <ngx-stars size="" color="#FFC145" initialStars="3" (ratingOutput)="setRating($event)" id="notation"
+      [(ngModel)]="restaurant.notation" name="notation" ngDefaultControl></ngx-stars>
+    <br>
+    <button mat-flat-button class="validate" (click)="addRestaurant()" [disabled]="restaurantForm.form.invalid || !locationValue">Rajouter</button>
+  </form>
+
+  <div *ngIf="isConfirmation && restaurant" class="add-form">
+    <p>{{'added_element' | translate}}
+      <br>{{'recap' | translate}}</p>
+    <div>{{restaurant.name}}</div><br>
+    <div>{{restaurant.location}}</div><br>
+    <div>{{restaurant.description}}</div><br>
+    <div>{{restaurant.type}}</div><br>
+    <div>{{restaurant.comment}}</div><br>
+    <ngx-stars [size]="4" [color]="'#FFC145'" initialStars="restaurant.notation" (ratingOutput)="setRating($event)"
+      id="notation" [(ngModel)]="restaurant.notation" name="notation"></ngx-stars>
+  </div>
+</div>

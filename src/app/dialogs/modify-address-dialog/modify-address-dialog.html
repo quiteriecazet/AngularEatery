@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>{{'address_modification_title' | translate}}</h1>
+<div mat-dialog-content>
+  {{'address_modification_question' | translate}} <strong>{{data}}</strong> ?
+  <br>
+  <br>
+  {{'address_modification_new' | translate}}
+  <br>
+  <br>
+  <form class="example-form">
+    <mat-form-field class="example-full-width" (onkeydown)="updateUserPosition(data.newValue)">
+      <input matInput id="location" [(ngModel)]="data.newValue" name="address" placeholder="Adresse" autofocus cdkFocusInitial>
+    </mat-form-field>
+  </form>
+  <div *ngIf="hasNewAddress">
+    {{'address_confirmation' | translate }}
+    <br>
+    {{userNewPosition.formatted_address}}
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button (click)="onNoClick()">{{'button_back' | translate}}</button>
+  <button mat-flat-button class="validate" [mat-dialog-close]="userNewPosition">{{'button_val' | translate}}</button>
+</div>
