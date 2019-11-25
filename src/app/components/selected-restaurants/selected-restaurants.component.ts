@@ -1,5 +1,5 @@
-import { Component, Directive, HostListener, Input, ViewChild, NgZone, OnInit, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { MatGridListModule, MatToolbarModule } from '@angular/material';
+import { Component, Directive, HostListener, Input, ViewChild, NgZone, OnInit, ElementRef, AfterViewInit, OnDestroy, ViewChildren, QueryList } from '@angular/core';
+import { MatGridListModule, MatToolbarModule, MatExpansionPanel } from '@angular/material';
 import {
   MatCardModule, MatListModule, MatDividerModule, MatSidenav, MatButtonToggleModule,
   MatExpansionModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatChipsModule
@@ -25,6 +25,7 @@ import { Rating } from 'src/app/rating.model';
 export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
 
   @ViewChild(MapsComponent)
+  @ViewChildren(MatExpansionPanel) viewPanels: QueryList<MatExpansionPanel>
   selectedRestaurants: Restaurant[];
   geolocation;
   currentUserPosition: Geolocation;
@@ -45,6 +46,7 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
   commentForm: FormGroup;
   sidenav: MatSidenav;
   userPosition;
+  value;
   currentRestaurant: HTMLElement;
   previousCurrent: any;
   notation: any;
@@ -91,8 +93,8 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
   displayRestaurants(type) {
     this.getSelectedRestaurants();
     this.clearMap();
-    if (this.panelOpenState) {
-      !this.panelOpenState;
+    if (this.viewPanels) {
+      this.viewPanels.forEach(p => p.close());
     }
     for (let i = 0; i < this.selectedRestaurants.length; i++) {
       const pos = {

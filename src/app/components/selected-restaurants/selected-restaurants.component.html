@@ -28,6 +28,13 @@
     <mat-divider></mat-divider>
   </div>
   <br>
+  <div class="results-header">
+    <span mat-subheader *ngIf="selectedRes && selectedRes.length <= 1">{{'we_found' | translate}} {{selectedRes.length}}
+      {{'result' | translate}}</span>
+    <span mat-subheader *ngIf="selectedRes && selectedRes.length > 1">{{'we_found' | translate}} {{selectedRes.length}}
+      {{'results' | translate}}</span>
+  </div>
+  <br>
   <mat-accordion>
     <mat-expansion-panel *ngFor="let restaurant of selectedRes" [expanded]="panelOpenState"
       (mouseover)="getPositionOnMap(restaurant)" id="{{restaurant.id}}">
@@ -55,18 +62,20 @@
             <mat-card-title>{{'add_comment' | translate}}</mat-card-title>
           </mat-card-header>
           <form [formGroup]="commentForm">
-          <mat-form-field class="example-full-width" appearance="outline">
-            <input matInput placeholder="Votre prénom" class="form-control" formControlName="name" id="name" name="name">
-          </mat-form-field>
-          <mat-form-field class="example-full-width" appearance="outline">
-            <textarea matInput name="comment" formControlName="comment"
-              placeholder="Exprimez en quelques mots ce qui vous a plu ou déplu dans ce restaurant"
-              class="form-control" id="comment"></textarea>
-          </mat-form-field>
-          <ngx-stars [size]="2" color="#FFC145" initialStars="3" (ratingOutput)="onRatingSet($event)" name="notation"
-          ngDefaultControl [(ngModel)]='notation' [ngModelOptions]="{standalone: true}"></ngx-stars>
-          <button mat-flat-button class="second post" (click)="addComment(restaurant, $event)"  [disabled]="commentForm.invalid">Poster</button>
-        </form>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <input matInput placeholder="Votre prénom" class="form-control" formControlName="name" id="name"
+                name="name">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+              <textarea matInput name="comment" formControlName="comment"
+                placeholder="Exprimez en quelques mots ce qui vous a plu ou déplu dans ce restaurant"
+                class="form-control" id="comment"></textarea>
+            </mat-form-field>
+            <ngx-stars [size]="2" color="#FFC145" initialStars="3" (ratingOutput)="onRatingSet($event)" name="notation"
+              ngDefaultControl [(ngModel)]='notation' [ngModelOptions]="{standalone: true}"></ngx-stars>
+            <button mat-flat-button class="second post" (click)="addComment(restaurant, $event)"
+              [disabled]="commentForm.invalid">Poster</button>
+          </form>
         </mat-card>
       </div>
       <mat-card *ngFor="let rating of restaurant.ratings" class="comments" (click)="togglePanel()">
