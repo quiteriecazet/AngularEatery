@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import { ViewChild } from '@angular/core';
-import { MatToolbarModule, MatMenuModule, MatButtonModule, MatSidenav, MatSidenavModule, MatGridListModule } from '@angular/material';
+import { MatToolbarModule, MatMenuModule, MatButtonModule, MatSidenav, MatGridListModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterOutlet, Router, NavigationExtras } from '@angular/router';
 import { Restaurant } from './restaurant';
@@ -10,7 +10,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { MapsComponent } from '../app/components/maps/maps.component';
 import { RestaurantsComponent } from '../app/components/restaurants/restaurants.component';
 import { RestaurantDetailComponent } from '../app/components/restaurant-detail/restaurant-detail.component';
-import { NotificationsComponent } from '../app/components/notifications/notifications.component';
 import { AddRestaurantComponent } from '../app/components/add-restaurant/add-restaurant.component';
 import { SelectedRestaurantsComponent } from '../app/components/selected-restaurants/selected-restaurants.component';
 import { GeolocationService } from './services/geolocation/geolocation.service';
@@ -61,7 +60,6 @@ export class AppComponent implements OnInit {
   }
 
   onActivate($event) {
-    console.log($event)
   }
 
   displayGeolocation = (position) => {
@@ -73,7 +71,6 @@ export class AppComponent implements OnInit {
     this.mapService.getSelectedRestaurants().subscribe(selectedRestaurants => {
       this.selectedRestaurants = selectedRestaurants;
     });
-    console.log(this.selectedRestaurants);
   }
 
   getAllTypes() {

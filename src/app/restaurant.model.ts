@@ -2,13 +2,13 @@ import { Rating } from './rating.model';
 
 export class Restaurant {
     constructor(
-    id: number,
-    name: string,
-    address: string,
-    lat: number,
-    long: number,
-    type: string,
-    description: string,
-    ratings: Rating[]
-    ) {}
+        public id: number,
+        public name: string,
+        public address: string,
+        public lat: number,
+        public long: number,
+        public type: string,
+        public description: string,
+        public ratings: Rating[]
+    ) { }
 }

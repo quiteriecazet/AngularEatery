@@ -23,7 +23,6 @@ export class ModifyAddressDialog implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: any) { }
 
     ngOnInit() {
-        console.log(this.data);
         this.input = document.getElementById('location');
         this.autocomplete = new google.maps.places.Autocomplete(this.input);
         this.autocomplete.addListener('place_changed', () => {
@@ -37,9 +36,9 @@ export class ModifyAddressDialog implements OnInit {
 
     updateUserPosition(): void {
         this.userNewPosition = this.autocomplete.getPlace();
-        if (this.userNewPosition.geometry) {
-            console.log(this.userNewPosition.geometry);
+        if (this.userNewPosition.geometry) { 
             this.hasNewAddress = true;
+            
           //  this.newUserPositionEvent.emit(this.userNewPosition);
         }
     }

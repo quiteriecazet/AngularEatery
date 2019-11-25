@@ -252,49 +252,64 @@
 
     "types": [
         {
-           "name": "Cambodgien"
+           "name": "Cambodgien",
+           "url": "https://www.indochinatravel.com/country/cambodia/images/1024-cambodian-dishes-at-sugar-palm-siem-reap-cambodia.jpg"
         },
         {
-           "name": "Indien"
+           "name": "Indien",
+           "url": "https://images.unsplash.com/photo-1505253758473-96b7015fcd40?ixlib=rb-1.2.1&auto=format&fit=crop&w=645&q=80"
         },
         {
-           "name": "Traditionnel"
+           "name": "Traditionnel",
+           "url": "https://images.unsplash.com/photo-1453078977505-10c3e375c2a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
         },
         {
-           "name": "Brasserie"
+           "name": "Brasserie",
+           "url": "https://images.unsplash.com/photo-1561043433-b0bb121aacef?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
         },
         {
-           "name": "Crêperie"
+           "name": "Crêperie",
+           "url": "https://cac.img.pmdstatic.net/fit/http.3A.2F.2Fprd2-bone-image.2Es3-website-eu-west-1.2Eamazonaws.2Ecom.2Fcac.2F2019.2F05.2F07.2F47f84424-adfb-4407-b639-c0876e9fdd5f.2Ejpeg/748x372/quality/80/crop-from/center/galettes-bretonnes-au-thermomix.jpeg"
         },
         {
-           "name": "Africain"
+           "name": "Africain",
+           "url": "https://img.theculturetrip.com/768x432/wp-content/uploads/2018/01/shutterstock_159732578.jpg"
         },
         {
-           "name": "Chinois"
+           "name": "Chinois",
+           "url": "https://images.unsplash.com/photo-1503764654157-72d979d9af2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=753&q=80"
         },
         {
-           "name": "Japonais"
+           "name": "Japonais",
+           "url": "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
         },
         {
-           "name": "Italien"
+           "name": "Italien",
+           "url": "https://images.unsplash.com/photo-1528137871618-79d2761e3fd5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
         },
         {
-           "name": "Burger"
+           "name": "Burger",
+           "url": "https://images.unsplash.com/photo-1550547660-d9450f859349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80"
         },
         {
-           "name": "Kebab"
+           "name": "Kebab",
+           "url": "https://images.unsplash.com/photo-1567807371095-0093acabcaf6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
         },
         {
-           "name": "Libanais"
+           "name": "Libanais",
+           "url": "https://images.unsplash.com/photo-1534824394572-a24ff25bbb5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=893&q=80"
         },
         {
-           "name": "Afghan"
+           "name": "Afghan",
+           "url": "https://images1.dallasobserver.com/imager/u/original/10681547/dal_food_20180508expresskabob-kathytran_img_9454.jpg"
         },
         {
-           "name": "Scandinave"
+           "name": "Scandinave",
+           "url": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
         },
         {
-           "name": "Slave"
+           "name": "Slave",
+           "url": "https://assets.epicurious.com/photos/57aa13ac3cbb3a89338d89bd/2:1/w_1260%2Ch_630/pierogies.jpg"
         }
     ]
 }

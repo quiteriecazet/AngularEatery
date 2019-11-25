@@ -1,37 +1,38 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { NgModule, InjectionToken } from '@angular/core';
+import { NgModule, InjectionToken, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
-import { MatGridListModule, MatToolbarModule, MatExpansionModule, MatButtonToggleModule, MatCardModule, MatButtonModule,
-   MatMenuModule, MatDividerModule, MatListModule, MatSidenavModule, MatFormFieldModule, MatInputModule, MatChipsModule,
-   MatSnackBarModule, MatDialogModule, MAT_DIALOG_DATA, MatDialogRef, MatProgressSpinnerModule} from '@angular/material';
+import {
+  MatGridListModule, MatToolbarModule, MatExpansionModule, MatButtonToggleModule, MatCardModule, MatButtonModule,
+  MatMenuModule, MatDividerModule, MatListModule, MatSidenavModule, MatFormFieldModule, MatInputModule, MatChipsModule,
+  MatSnackBarModule, MatDialogModule, MAT_DIALOG_DATA, MatDialogRef, MatProgressSpinnerModule
+} from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { NgxStarsModule } from 'ngx-stars';
 import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { RestaurantsComponent } from './components/restaurants/restaurants.component';
 import { RestaurantDetailComponent } from './components/restaurant-detail/restaurant-detail.component';
-import { NotificationsComponent } from './components/notifications/notifications.component';
 import { SelectedRestaurantsComponent } from './components/selected-restaurants/selected-restaurants.component';
 import { GoogleMapsDirective } from './google-maps.directive';
 import { MapsComponent } from './components/maps/maps.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UniqueResultsPipe } from './pipes/unique-results.pipe';
 import { AddRestaurantComponent } from './components/add-restaurant/add-restaurant.component';
-import { HomepageComponent } from './components/homepage/homepage.component';
 // import ngx-translate and the http loader
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ModifyAddressDialog } from './dialogs/modify-address-dialog/modify-address-dialog';
 
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' },
-  { path: 'homepage', component: HomepageComponent},
-  { path: 'selected-restaurants', component: SelectedRestaurantsComponent},
+  { path: 'homepage', component: AppComponent },
+  { path: 'selected-restaurants', component: SelectedRestaurantsComponent },
   { path: 'restaurants', component: RestaurantsComponent },
   { path: 'detail/:id', component: RestaurantDetailComponent }
 ];
@@ -43,13 +44,11 @@ export const apiKey = 'AIzaSyDKfiljHPgRVtQZdjApoZdgJqHK8wyanpA';
     AppComponent,
     RestaurantsComponent,
     RestaurantDetailComponent,
-    NotificationsComponent,
     SelectedRestaurantsComponent,
     GoogleMapsDirective,
     MapsComponent,
     UniqueResultsPipe,
     AddRestaurantComponent,
-    HomepageComponent,
     ModifyAddressDialog
   ],
   imports: [
@@ -80,12 +79,15 @@ export const apiKey = 'AIzaSyDKfiljHPgRVtQZdjApoZdgJqHK8wyanpA';
     BrowserAnimationsModule,
     NgxStarsModule,
     HttpClientModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     TranslateModule.forRoot({
-        loader: {
-            provide: TranslateLoader,
-            useFactory: HttpLoaderFactory,
-            deps: [HttpClient]
-        }
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
     })
   ],
   entryComponents: [
@@ -95,7 +97,10 @@ export const apiKey = 'AIzaSyDKfiljHPgRVtQZdjApoZdgJqHK8wyanpA';
     { provide: MAT_DIALOG_DATA, useValue: {} },
     { provide: MatDialogRef, useValue: {} }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
 })
 export class AppModule {
 

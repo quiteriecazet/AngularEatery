@@ -64,15 +64,6 @@ export class MapService {
       }).catch((error) => {
         return null;
       })
-    // dialogRef.afterClosed().subscribe(result => {
-    //   this.userAddress = result;
-    //   console.log('The dialog was closed');
-    //   if (this.userAddress) {
-
-    //   }
-    //   return this.userAddress;
-    // });
-    // return this.userAddress;
   }
 
   getGeolocation() {

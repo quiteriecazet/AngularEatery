@@ -1,6 +1,7 @@
 export class Rating {
     constructor(
-    notation: number,
-    comment: string
+    public user: string,
+    public notation: number,
+    public comment: string
     ) { }
 }

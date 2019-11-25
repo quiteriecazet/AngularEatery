@@ -1,16 +1,33 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { TranslateModule, TranslateLoader, TranslateStore, TranslateFakeLoader } from '@ngx-translate/core';
+import { MatToolbarModule, MatMenuModule, MatButtonModule, MatGridListModule, MatSnackBarModule, MatDialogModule} from '@angular/material';
+import { MatIconModule } from '@angular/material/icon';
+import { HttpLoaderFactory} from './app.module';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useClass: TranslateFakeLoader }
+        }),
+        MatMenuModule,
+        MatSnackBarModule,
+        MatIconModule,
+        MatDialogModule
       ],
       declarations: [
         AppComponent
       ],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ]
     }).compileComponents();
   }));
 

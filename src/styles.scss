@@ -1,9 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
-
 @import "assets/sass/variables.scss";
-
 
 body, html, #gmap_container {
     margin: 0px !important;
@@ -27,20 +25,13 @@ a, a:visited, a:hover {
 
 }
 
-.mat-icon {
+mat-icon {
     cursor: pointer;
     color:  $yellow;
-    margin: 2%;
 }
 
 .white-icon {
     color:black;
-}
-
-.rst {
-    z-index: 10000000 !important;
-    position: absolute !important;
-    margin: 90px;
 }
 
 .mat-card-title {
@@ -63,7 +54,7 @@ button.flat {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0,5px;
-    background-color: $blue;
+    background-color: $red;
     text-transform: uppercase;
 }
 
@@ -144,7 +135,11 @@ mat-list-item {
   
 .example-full-width {
     width: 100%;
-  }
+}
+
+.example-large-width {
+    width: 80%;
+}
 
 
 button.validate {

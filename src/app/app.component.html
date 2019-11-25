@@ -1,42 +1,36 @@
-<mat-toolbar color="white">
-  <mat-toolbar-row class="logo-toolbar">
-    <img class="logo" src="../assets/img/logo.png" routerLink="/homepage" routerLinkActive="active">
-    <div class="address-change">
-      <button mat-flat-button class="flat address" (click)="modifyAddress()" *ngIf="isGeolocated">
-        {{'modify_address' | translate}}</button>
-      <button mat-flat-button class="flat address" (click)="ngOnInit()" *ngIf="!isGeolocated">
-        {{'get_geoloc' | translate}}</button>
-    </div>
-  </mat-toolbar-row>
-  <mat-toolbar-row class="menu-toolbar">
+<mat-toolbar color="white" class="header">
+  <img class="logo" src="../assets/img/logo.png" routerLink="/homepage" routerLinkActive="active">
+  <div class="menu-header">
     <span (click)="displayRestaurants('')">
-      {{'our_restaurants' | translate}}
       <mat-icon matSuffix>room</mat-icon>
+      {{'our_restaurants' | translate}}
     </span>
-    <span class="example-spacer"></span>
     <span (click)="displayRestaurants('fromDB')">
-      {{'referenced_restaurants' | translate}}
       <mat-icon matSuffix>thumb_up_alt</mat-icon>
+      {{'referenced_restaurants' | translate}}
     </span>
-    <span class="example-spacer"></span>
     <span [matMenuTriggerFor]="menu" (click)="getAllTypes()" class="chosenType">
-      {{'popular_cuisine_types' | translate}}
       <mat-icon matSuffix>local_dining</mat-icon>
+      {{'popular_cuisine_types' | translate}}
       <mat-menu #menu="matMenu">
         <button mat-menu-item *ngFor="let type of types" (click)="displayRestaurants(type)">{{type}}</button>
       </mat-menu>
     </span>
-    <span class="example-spacer"></span>
+    <mat-icon matSuffix>public</mat-icon>
     <span routerLink="/restaurants" routerLinkActive="active">
       {{'places_search' | translate}}
-      <mat-icon matSuffix>public</mat-icon>
     </span>
-    <span class="example-spacer"></span>
+    <mat-icon matSuffix>edit</mat-icon>
     <span routerLink="/add-restaurant" routerLinkActive="active">
       {{'add_an_address' | translate}}
-      <mat-icon matSuffix>edit</mat-icon>
     </span>
-  </mat-toolbar-row>
+  </div>
+  <div class="address-change">
+    <button mat-flat-button class="flat address" (click)="modifyAddress()" *ngIf="isGeolocated">
+      {{'modify_address' | translate}}</button>
+    <button mat-flat-button class="flat address" (click)="ngOnInit()" *ngIf="!isGeolocated">
+      {{'get_geoloc' | translate}}</button>
+  </div>
 </mat-toolbar>
 
 <mat-grid-list cols="2" rowHeight="6:1" gutterSize="3px" class="tablet">
@@ -74,7 +68,6 @@
     </span>
   </mat-grid-tile>
 </mat-grid-list>
-<br>
 
 <div class="main-container">
   <div class="router-container">

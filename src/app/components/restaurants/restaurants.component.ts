@@ -79,7 +79,6 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
     this.autocomplete.addListener('place_changed', () => {
       this.inputResult = this.autocomplete.getPlace();
       if (this.inputResult.geometry) {

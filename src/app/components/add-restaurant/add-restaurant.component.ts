@@ -1,23 +1,24 @@
-import { Component, OnInit, ViewChild, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit, AfterContentInit } from '@angular/core';
 import { } from 'googlemaps';
 import { MapsComponent } from '../maps/maps.component';
 import { MatGridList, MatFormFieldModule, MatButtonModule, MatMenuModule, MatToolbarModule, MatCardModule } from '@angular/material';
 import { typesList } from '../../types';
 import { CommonModule } from '@angular/common';
 import { NgxStarsModule } from 'ngx-stars';
-import { FormArray, Validators, FormBuilder, FormsModule } from '@angular/forms';
+import { FormGroup, FormBuilder, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { restaurantsList } from '../../restaurant';
 import { Restaurant } from '../../restaurant.model';
 import { Rating } from '../../rating.model';
 import { MapService } from '../../services/map/map.service';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
+import { ChangeDetectorRef,AfterContentChecked} from '@angular/core';
 
 @Component({
   selector: 'app-add-restaurant',
   templateUrl: './add-restaurant.component.html',
   styleUrls: ['./add-restaurant.component.scss']
 })
-export class AddRestaurantComponent implements AfterViewInit {
+export class AddRestaurantComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MapsComponent)
   map;
@@ -29,7 +30,7 @@ export class AddRestaurantComponent implements AfterViewInit {
   marker;
   address;
   restaurant = {};
-  isConfirmation = false;
+  isConfirmation;
   latLng;
   markers: any = [];
   geocoder = new google.maps.Geocoder;
@@ -39,35 +40,75 @@ export class AddRestaurantComponent implements AfterViewInit {
   locationRating = 0;
   newRestaurant;
   lastId: number;
+  restaurantForm: FormGroup;
+  rating: Rating;
+  constructor(private mapService: MapService, private geolocationService: GeolocationService, private formBuilder: FormBuilder) { }
 
-  constructor (private mapService: MapService, private geolocationService: GeolocationService) { }
-
-  ngAfterViewInit() {
+  ngOnInit() {
+    this.restaurantForm;
     this.map = this.mapService.getMap();
-    this.geolocationService.getGeolocation(position => 
+    this.geolocationService.getGeolocation(position =>
       this.mapService.displayGeolocation(position)
     );
     this.types = typesList;
-    this.foodType = 'Type de cuisine';
+    this.isConfirmation = false;
+    this.foodType = { name: 'Type de cuisine', url: null };
+    this.onMapClick();
+    this.initForm();
+  }
+
+  ngAfterViewInit() {
     this.input = document.getElementById('location');
     this.autocomplete = new google.maps.places.Autocomplete(this.input);
     this.autocomplete.addListener('place_changed', () => {
       this.onLocationClick();
     });
-    this.onMapClick();
   }
-  
+
+  initForm() {
+    this.restaurantForm = this.formBuilder.group({
+      'name': ['', [
+        Validators.required,
+        Validators.minLength(1),
+      ]],
+      'description': ['', [
+        Validators.required,
+        Validators.minLength(10),
+      ]],
+      'comment': ['', [
+        Validators.required,
+        Validators.minLength(10),
+      ]],
+    })
+  }
+
+  onSubmit() {
+    const formValue = this.restaurantForm.value;
+    this.rating = new Rating(formValue['name'], this.locationRating, formValue['comment']);
+    const restaurant = new Restaurant(
+      15,
+      formValue['name'],
+      this.locationValue,
+      this.markerLocation.lat,
+      this.markerLocation.lng,
+      this.foodType.name,
+      formValue['description'],
+      [this.rating]
+    )
+    this.newRestaurant = restaurant;
+    this.isConfirmation = true;
+  }
+
 
   isSelected(type) {
-    this.foodType = type.name;
-    console.log(this.foodType);
+    this.foodType = type;
   }
 
   onMapClick() {
     this.map.addListener('click', (e) => {
       this.addMarker(e.latLng);
     });
-  
+
   }
 
   onLocationClick() {
@@ -92,16 +133,11 @@ export class AddRestaurantComponent implements AfterViewInit {
     this.getAddressFromCoordinates(location);
   }
 
-  addRestaurant() {
-    this.isConfirmation = true;
-    console.log(this.restaurant);
-  }
-
   getAddressFromCoordinates(location) {
-    this.markerLocation = { lat: parseFloat(location.lat()), lng: parseFloat(location.lng())};
-    this.geocoder.geocode({'location': this.markerLocation}, (results, status) => {
+    this.markerLocation = { lat: parseFloat(location.lat()), lng: parseFloat(location.lng()) };
+    this.geocoder.geocode({ 'location': this.markerLocation }, (results, status) => {
       if (results[0]) {
-      this.locationValue = results[0].formatted_address;
+        this.locationValue = results[0].formatted_address;
       }
     });
   }

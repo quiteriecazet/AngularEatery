@@ -14,6 +14,8 @@ import { NgxStarsModule } from 'ngx-stars';
 import { MapService } from '../../services/map/map.service';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
 import { Geolocation } from '../../geolocation';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Rating } from 'src/app/rating.model';
 
 @Component({
   selector: 'app-selected-restaurants',
@@ -40,18 +42,20 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
   noChosenType = 'Les types de cuisine populaires';
   previousMarker;
   commentAreaDisplay = false;
-  comment = <any>{};
+  commentForm: FormGroup;
   sidenav: MatSidenav;
   userPosition;
   currentRestaurant: HTMLElement;
   previousCurrent: any;
-  constructor(private activatedRoute: ActivatedRoute, private mapService: MapService, private geolocationService: GeolocationService) { }
+  notation: any;
+  comment: Rating;
+  constructor(private activatedRoute: ActivatedRoute, private mapService: MapService, private geolocationService: GeolocationService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.map = this.mapService.getMap();
-    this.geolocationService.getGeolocation(position => 
+    this.geolocationService.getGeolocation(position =>
       this.position = position
-      );
+    );
     this.getSelectedRestaurants();
     this.activatedRoute.fragment.subscribe(params => {
       if (params == '' && this.position) {
@@ -59,6 +63,7 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
       }
       this.displayRestaurants(params);
     })
+    this.initForm();
   }
 
   ngOnDestroy() {
@@ -81,7 +86,6 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
     this.mapService.getSelectedRestaurants().subscribe(selectedRestaurants => {
       this.selectedRestaurants = selectedRestaurants;
     });
-    console.log(this.selectedRestaurants);
   }
 
   displayRestaurants(type) {
@@ -90,7 +94,7 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
     if (this.panelOpenState) {
       !this.panelOpenState;
     }
-    for (let i = 0; i < this.selectedRestaurants.length; i++) { 
+    for (let i = 0; i < this.selectedRestaurants.length; i++) {
       const pos = {
         lat: this.selectedRestaurants[i].lat,
         lng: this.selectedRestaurants[i].long
@@ -124,7 +128,7 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
             this.currentRestaurant = document.getElementById('' + this.selectedRestaurants[i].id + '');
             this.currentRestaurant.classList.add("current");
             this.previousCurrent = marker;
-          } 
+          }
         }
       })
 
@@ -166,23 +170,33 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
     this.commentAreaDisplay = !this.commentAreaDisplay;
   }
 
+  initForm() {
+    this.commentForm = this.formBuilder.group({
+      'name': ['', [
+        Validators.required,
+        Validators.minLength(1),
+      ]],
+      'comment': ['', [
+        Validators.required,
+        Validators.minLength(10),
+      ]]
+    })
+  }
+
   addComment(restaurant) {
-    if (!restaurant.hasPosted || restaurant.hasPosted === undefined) {
-      this.comment = {
-        user: this.comment.user,
-        notation: this.comment.notation,
-        comment: this.comment.text
-      };
-      restaurant.ratings.unshift(this.comment);
-      this.toggleComment(restaurant);
-      restaurant.hasPosted = true;
-    }
+    const formValue = this.commentForm.value;
+    const comment = new Rating(
+      formValue['name'],
+      this.notation,
+      formValue['comment']
+    )
+    restaurant.ratings.unshift(comment);
+    this.toggleComment(restaurant);
   }
 
   onRatingSet($event) {
-    this.comment.notation = $event;
+    this.notation = $event;
   }
-
 }
 
 

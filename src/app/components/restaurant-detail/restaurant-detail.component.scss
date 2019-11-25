@@ -16,30 +16,37 @@ img {
   min-width: 50%;
 }
 
-mat-card-title {
-  color: $yellow;
-}
-
-mat-card-subtitle {
-  color: $red;
-}
-
 mat-card {
   margin: 10px;
   padding: 10px !important;
   font-weight: 700;
+
+  mat-card-header {
+    button {
+      align-self: end;
+    }
+
+    mat-card-title {
+      color: $yellow;
+    }
+
+    mat-card-subtitle {
+      color: $red;
+    }
+  }
+  
+  mat-card-content {
+    font-size: 0.95em;
+    line-height: 1.6em;
+  }
+
+  span {
+    color: $blue;
+  }
 }
 
-mat-card span {
-  color: $blue;
-}
-
-mat-card-content {
-  font-size: 0.95em;
-  line-height: 1.6em;
-}
-
-.mat-progress-spinner circle, .mat-spinner circle {
+.mat-progress-spinner circle,
+.mat-spinner circle {
   stroke: $red !important;
 }
 
@@ -47,8 +54,4 @@ mat-card-content {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-mat-card-header button {
-    align-self: end;
 }
