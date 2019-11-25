@@ -79,12 +79,16 @@ export class AddRestaurantComponent implements OnInit, AfterViewInit {
         Validators.required,
         Validators.minLength(10),
       ]],
+      'username': ['', [
+        Validators.required,
+        Validators.minLength(1),
+      ]],
     })
   }
 
   onSubmit() {
     const formValue = this.restaurantForm.value;
-    this.rating = new Rating(formValue['name'], this.locationRating, formValue['comment']);
+    this.rating = new Rating(formValue['username'], this.locationRating, formValue['comment']);
     const restaurant = new Restaurant(
       15,
       formValue['name'],
