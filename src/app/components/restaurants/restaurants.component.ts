@@ -26,7 +26,6 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
 
   @ViewChild(MapsComponent)
   private mapsComponent: MapsComponent;
-  @Input() map;
   place: any;
   lat: number;
   lng: number;
@@ -41,6 +40,7 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
   placeResults: any;
   showDetails = false;
   bounds;
+  map;
   photo;
   service
   selectedRestaurant;
@@ -123,7 +123,6 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
           } else {
             item.distance = item.distance.toString() + 'm';
           }
-          console.log(item);
         });
       }
     });
@@ -136,7 +135,6 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
 
     this.markers.forEach((marker) => {
       marker.addListener('click', () => {
-        console.log(marker);
       });
     });
     this.map.setZoom(12);
@@ -160,7 +158,6 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
           this.photo = this.selectedRestaurant.photo.getUrl({ maxWidth: 1000, maxHeight: 1000 });
           this.selectedRestaurant.photos[0] = this.photo;
         }
-        console.log(this.selectedRestaurant);
         if (!this.map.getBounds().contains(this.selectedRestaurant.geometry.location)) {
          this.mapService.setGeolocation(this.map, this.selectedRestaurant.geometry.location) 
         };
