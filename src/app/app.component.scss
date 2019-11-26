@@ -40,6 +40,7 @@ span {
 
 span:hover {
   border-bottom: 6px solid $yellow;
+  padding-bottom: 13px;
 }
 
 mat-icon {
@@ -50,7 +51,7 @@ mat-icon {
 
 .router-container {
   max-width: 50%;
-  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .map-container {

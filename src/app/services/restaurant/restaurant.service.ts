@@ -17,4 +17,8 @@ export class RestaurantService {
   getRestaurantDetails(restaurant) {
     this.restaurant.next(restaurant);
   }
+
+  addRestaurant(restaurant) {
+    
+  }
 }

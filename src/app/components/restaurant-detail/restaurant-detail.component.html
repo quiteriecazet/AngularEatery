@@ -2,17 +2,6 @@
 
   <div class="restaurant-infos">
     <div>
-      <mat-card-header>
-        <mat-card-title>
-          {{restaurant.name}}
-        </mat-card-title>
-        <mat-card-subtitle>
-          {{restaurant.vicinity}}
-        </mat-card-subtitle>
-        <button mat-flat-button class="third"
-          onclick="window.location.href ='restaurant.website'">{{'website' | translate}}</button>
-
-      </mat-card-header>
       <mat-card-content>
         <mat-card *ngIf="restaurant.opening_hours">
           <span *ngFor="let weekday of restaurant.opening_hours.weekday_text">{{weekday}}<br></span>

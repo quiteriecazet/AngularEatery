@@ -1,4 +1,9 @@
-<div *ngIf="!showDetails" class="main-container">
+<mat-card>
+  <mat-card-title>
+    {{'welcome_places' | translate}}
+  </mat-card-title>
+</mat-card>
+<div *ngIf="!showDetails">
   <div class="header">
     <mat-toolbar>
       <mat-toolbar-row>
@@ -43,38 +48,41 @@
     </div>
   </div>
 
-  <div class="content-wrapper">
-    <div class="overflow-container">
-      <div class="overflow-content">
-        <mat-list>
-          <mat-list-item *ngFor="let restaurant of results" (click)="getDetails(restaurant)"
-            (mouseover)="getPositionOnMap(restaurant)">
-            <div mat-line>
-              <div class="restaurant-title">{{restaurant.name}}</div>
-              <div class="rating">
-                <mat-chip-list>
-                  <mat-chip selected class="chip-second"> {{restaurant.rating}}{{'notation' | translate}}</mat-chip>
-                  <mat-chip selected class="chip-third">{{restaurant.user_ratings_total}} {{'comments' | translate}}
-                  </mat-chip>
-                </mat-chip-list>
-              </div>
-            </div>
-            <p mat-line class="address">{{restaurant.vicinity}}</p>
-            <span class="distance" *ngIf="restaurant.distanceInKm">{{'distance_prefix' | translate}}
-              {{restaurant.distanceInKm}}</span>
-            <span class="distance" *ngIf="!restaurant.distanceInKm">{{'distance_prefix' | translate}}
-              {{restaurant.distance}}</span>
-            <hr>
-          </mat-list-item>
-        </mat-list>
-      </div>
-    </div>
+  <div>
+    <mat-list>
+      <mat-list-item *ngFor="let restaurant of results" (click)="getDetails(restaurant)"
+        (mouseover)="getPositionOnMap(restaurant)">
+        <div mat-line>
+          <div class="restaurant-title">{{restaurant.name}}</div>
+          <div class="rating">
+            <mat-chip-list>
+              <mat-chip selected class="chip-second"> {{restaurant.rating}}{{'notation' | translate}}</mat-chip>
+              <mat-chip selected class="chip-third">{{restaurant.user_ratings_total}} {{'comments' | translate}}
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+        <p mat-line class="address">{{restaurant.vicinity}}</p>
+        <span class="distance" *ngIf="restaurant.distanceInKm">{{'distance_prefix' | translate}}
+          {{restaurant.distanceInKm}}</span>
+        <span class="distance" *ngIf="!restaurant.distanceInKm">{{'distance_prefix' | translate}}
+          {{restaurant.distance}}</span>
+        <hr>
+      </mat-list-item>
+    </mat-list>
   </div>
 </div>
-<div *ngIf="showDetails" class="container">
+<div *ngIf="showDetails">
   <div class="upper-details">
-    <button mat-flat-button class="validate" (click)="goBackToResults()">Retour aux résultats</button>
-    <button mat-flat-button class="second">Ajouter à la sélection</button>
+    <div class="selected-restaurant-infos">
+      <div class="restaurant-title">{{selectedRestaurant.name}}</div>
+      <p mat-line class="address">{{selectedRestaurant.vicinity}}</p>
+    </div>
+    <div class="selected-restaurant-button">
+    <button mat-flat-button class="third"><a href={{selectedRestaurant.website}}
+      target="_blank">{{'website' | translate}}</a></button>
+    <button mat-flat-button class="second" (click)="goBackToResults()">Retour aux résultats</button>
+  </div>
   </div>
   <app-restaurant-detail></app-restaurant-detail>
 </div>

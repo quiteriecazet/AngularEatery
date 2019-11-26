@@ -2,6 +2,18 @@
 
 .restaurant-infos {
   display: flex;
+  flex-direction: inherit;
+  align-items: center;
+
+  mat-card-header, mat-card-content {
+    align-items: center;
+    margin: 5px;
+  }
+
+  a {
+    color: white;
+    font-weight: 700;
+  }
 }
 
 .upper-details {
@@ -19,7 +31,6 @@ img {
 mat-card {
   margin: 10px;
   padding: 10px !important;
-  font-weight: 700;
 
   mat-card-header {
     button {
@@ -28,20 +39,12 @@ mat-card {
 
     mat-card-title {
       color: $yellow;
+        font-size: 15px !important;
     }
 
     mat-card-subtitle {
       color: $red;
     }
-  }
-  
-  mat-card-content {
-    font-size: 0.95em;
-    line-height: 1.6em;
-  }
-
-  span {
-    color: $blue;
   }
 }
 

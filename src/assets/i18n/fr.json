@@ -15,6 +15,7 @@
     "button_val": "Valider",
     "no_referenced_restaurants_found": "Nous sommes désolés, nous n'avons trouvé aucun restaurant à proximité déjà présent dans notre base de données.",
     "add_restaurant_tip": "Vous pouvez cependant ajouter votre secret bien gardé en cliquant sur la carte à son emplacement, faire une recherche grâce à notre moteur de recherche ou bien cliquer sur nos restaurants référencés.",
+    "welcome_places": "Bienvenue sur notre moteur de recherches Places, vous pouvez ici découvrir les meilleurs restaurants autour de vous.",
     "places_lookup": "Chercher sur Places",
     "modify_address": "Changer d'adresse",
     "get_geoloc": "Revenir à ma position",

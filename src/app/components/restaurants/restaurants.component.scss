@@ -1,13 +1,19 @@
 @import "../../../assets/sass/variables.scss";
 
 mat-list-item,
-.upper-details {
+.upper-details,
+.selected-restaurant-infos {
   display: flex;
+}
+
+.selected-restaurant-infos {
+  flex-direction: column;
+  color: $blue;
 }
 
 .rating,
 .upper-details {
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 mat-list-item:hover {
@@ -33,7 +39,8 @@ mat-list-item:hover {
   font-size: 0.8em;
 }
 
-.header {
+.header,
+.upper-details {
   position: sticky;
   top: 0;
   background-color: white;
@@ -45,7 +52,7 @@ mat-toolbar-row {
   font-weight: 700;
   display: flex;
   justify-content: space-between;
-  height: 90px !important;
+  height: 75px !important;
 }
 
 .sorting {
@@ -59,19 +66,22 @@ mat-toolbar-row {
 }
 
 .upper-details {
-  display: flex;
-  justify-content: flex-end;
-  margin: 10px;
+  justify-content: space-between;
+  padding: 10px;
+
+  a {
+    color: white;
+    font-weight: 700;
+  }
 }
 
-.upper-details :first-child {
-  margin-right: 20px;
+.selected-restaurant-button .third.mat-flat-button {
+  margin-right: 15px;
 }
 
 mat-toolbar {
   position: static;
 }
-
 
 @media screen and (min-width: 1500px) and (max-width: 1800px) {
   .main-container {

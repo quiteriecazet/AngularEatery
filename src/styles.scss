@@ -91,6 +91,10 @@ button.flat {
   height: 60px;
 }
 
+.mat-button, .mat-flat-button, .mat-icon-button, .mat-stroked-button {
+    min-width: 83px !important;
+}
+
 .restaurants-toggle {
   .mat-button-toggle-label-content {
     display: flex !important;
