@@ -47,9 +47,7 @@ export class AddRestaurantComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.restaurantForm;
     this.map = this.mapService.getMap();
-    this.geolocationService.getGeolocation(position =>
-      this.mapService.displayGeolocation(position)
-    );
+    //this.mapService.displayLocation();
     this.types = typesList;
     this.isConfirmation = false;
     this.foodType = { name: 'Type de cuisine', url: null };

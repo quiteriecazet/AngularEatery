@@ -58,9 +58,6 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
 
   ngAfterViewInit() {
     this.map = this.mapService.getMap();
-    this.geolocationService.getGeolocation(position =>
-      this.mapService.displayGeolocation(position)
-    );
     this.service = new google.maps.places.PlacesService(this.map);
     this.bounds = new google.maps.LatLngBounds();
     this.inputRestaurant = document.getElementById('location');
@@ -159,7 +156,7 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
           this.selectedRestaurant.photos[0] = this.photo;
         }
         if (!this.map.getBounds().contains(this.selectedRestaurant.geometry.location)) {
-         this.mapService.setGeolocation(this.map, this.selectedRestaurant.geometry.location) 
+         this.mapService.setGeolocation(this.selectedRestaurant.geometry.location) 
         };
         this.restaurantService.getRestaurantDetails(this.selectedRestaurant);
         //this.restaurantDetailComponent.showDetails(restaurant);

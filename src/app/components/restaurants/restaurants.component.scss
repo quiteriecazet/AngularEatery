@@ -9,6 +9,7 @@ mat-list-item,
 .selected-restaurant-infos {
   flex-direction: column;
   color: $blue;
+  max-width: 55%;
 }
 
 .rating,

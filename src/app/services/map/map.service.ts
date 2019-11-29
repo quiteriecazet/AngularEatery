@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { of, BehaviorSubject, Observable } from 'rxjs';
 import { restaurantsList, Restaurant } from '../../restaurant';
 import { } from 'googlemaps';
+import { GeolocationService } from '../../services/geolocation/geolocation.service';
 import { MatSnackBar, MatSnackBarConfig, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ModifyAddressDialog } from 'src/app/dialogs/modify-address-dialog/modify-address-dialog';
 
@@ -19,26 +20,34 @@ export class MapService {
   geocoder = new google.maps.Geocoder;
   address;
   LatLngPosition: google.maps.LatLng;
-  constructor(public snackBar: MatSnackBar, public dialog: MatDialog) { }
+  constructor(public snackBar: MatSnackBar, public dialog: MatDialog, private geolocationService: GeolocationService) { }
 
   getMap() {
     return this.map;
   }
 
-  setGeolocation(map, LatLngPosition) {
-    if (!this.map) {
+  setGeolocation(position?, geolocated?, map?) {
+    if (map) {
       this.map = map;
     }
-    this.userPosition = LatLngPosition;
-    this.clearMap(this.markers);
-    this.openSnackBar('Nous vous avons trouvé!', 'Fermer');
-    this.map.setCenter(this.userPosition);
-    this.getAddressFromCoordinates();
+    this.userPosition = position;
+    this.displayLocation();
+  }
 
+  displayLocation() {
+    if (this.userPosition.coords) {
+      this.LatLngPosition = new google.maps.LatLng(this.userPosition.coords.latitude, this.userPosition.coords.longitude);
+    } else {
+      this.LatLngPosition = this.userPosition;
+    }
+    this.openSnackBar('Nous vous avons trouvé!', 'Fermer')
+    this.clearMap(this.markers);
+    this.map.setCenter(this.LatLngPosition);
+    this.getAddressFromCoordinates();
     this.userPositionMarker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: this.userPosition,
+      position: this.LatLngPosition,
       icon: '../../assets/img/pointer-user.png'
     });
 
@@ -58,7 +67,7 @@ export class MapService {
         if (result) {
           this.address = result.formatted_address;
           this.userPosition = result.geometry.location;
-          this.setGeolocation(this.map, this.userPosition);
+          this.setGeolocation(this.userPosition, false);
         }
         return result;
       }).catch((error) => {
@@ -72,12 +81,11 @@ export class MapService {
     }
   }
 
-  displayGeolocation(position) {
-    this.LatLngPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    this.setGeolocation(this.map, this.LatLngPosition);
-    this.openSnackBar('Nous vous avons trouvé!', 'Fermer')
+  getLatLngPosition() {
+    if (this.LatLngPosition) {
+      return this.LatLngPosition;
+    }
   }
-
   setMarkers(markers) {
     this.markers = markers;
   }
@@ -104,7 +112,7 @@ export class MapService {
   }
 
   getAddressFromCoordinates = () => {
-    this.geocoder.geocode({ 'location': this.userPosition }, (results, status) => {
+    this.geocoder.geocode({ 'location': this.LatLngPosition }, (results, status) => {
       if (results[0]) {
         return this.address = results[0].formatted_address;
       }
@@ -119,7 +127,7 @@ export class MapService {
       }
     }
     markers = [];
-    this.userPositionMarker ? this.userPositionMarker.setMap(null) : null;
+    //this.userPositionMarker ? this.userPositionMarker.setMap(null) : null;
     if (selectedResType) {
       selectedResType = null;
     }

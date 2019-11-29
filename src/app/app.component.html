@@ -28,7 +28,7 @@
   <div class="address-change">
     <button mat-flat-button class="flat address" (click)="modifyAddress()" *ngIf="isGeolocated">
       {{'modify_address' | translate}}</button>
-    <button mat-flat-button class="flat address" (click)="ngOnInit()" *ngIf="!isGeolocated">
+    <button mat-flat-button class="flat address" (click)="setGeolocation()" *ngIf="!isGeolocated">
       {{'get_geoloc' | translate}}</button>
   </div>
 </mat-toolbar>

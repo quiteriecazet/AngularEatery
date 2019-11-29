@@ -55,13 +55,11 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.map = this.mapService.getMap();
-    this.geolocationService.getGeolocation(position =>
-      this.position = position
-    );
     this.getSelectedRestaurants();
     this.activatedRoute.fragment.subscribe(params => {
-      if (params == '' && this.position) {
-        this.mapService.displayGeolocation(this.position);
+      if (params == '') {
+        this.userPosition = this.mapService.getLatLngPosition();
+        this.map.setCenter(this.userPosition);
       }
       this.displayRestaurants(params);
     })

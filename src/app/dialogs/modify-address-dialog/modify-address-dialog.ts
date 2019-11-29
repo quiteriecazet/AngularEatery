@@ -16,7 +16,7 @@ export class ModifyAddressDialog implements OnInit {
     input;
     hasNewAddress = false;
 
-    //@Output() newUserPositionEvent = new EventEmitter<any>();
+    @Output() newUserPositionEvent = new EventEmitter<any>();
 
     constructor(
         public dialogRef: MatDialogRef<ModifyAddressDialog>,
@@ -38,8 +38,7 @@ export class ModifyAddressDialog implements OnInit {
         this.userNewPosition = this.autocomplete.getPlace();
         if (this.userNewPosition.geometry) { 
             this.hasNewAddress = true;
-            
-          //  this.newUserPositionEvent.emit(this.userNewPosition);
+            this.newUserPositionEvent.emit(this.userNewPosition);
         }
     }
 }

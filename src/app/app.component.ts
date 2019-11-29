@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, AfterContentInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { MatToolbarModule, MatMenuModule, MatButtonModule, MatSidenav, MatGridListModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,7 +23,7 @@ import { Geolocation } from '../app/geolocation';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterContentInit {
   result: boolean;
   constructor(
     private translate: TranslateService,
@@ -52,20 +52,20 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.router.navigate(['']);
-    this.geolocationService.getGeolocation(position =>
-      this.displayGeolocation(position)
-    );
+    this.mapsComponent.setGeolocation();
+    this.isGeolocated = true;
+    this.getSelectedRestaurants();
+  }
+
+  ngAfterContentInit() {
+    this.router.navigate(['']);
+    this.mapsComponent.setGeolocation();
     this.isGeolocated = true;
     this.getSelectedRestaurants();
   }
 
   onActivate($event) {
   }
-
-  displayGeolocation = (position) => {
-    this.mapsComponent.displayGeolocation(position)
-  }
-
 
   getSelectedRestaurants(): void {
     this.mapService.getSelectedRestaurants().subscribe(selectedRestaurants => {
@@ -86,14 +86,16 @@ export class AppComponent implements OnInit {
   }
 
   modifyAddress(): void {
-    // this.mapService.modifyAddress().subscribe(userAddress => {
-    //   this.result = userAddress;
-    // });
     this.mapService.modifyAddress().then((result) => {
       if (result) {
         this.isGeolocated = false;
       }
     })
+  }
+
+  setGeolocation() {
+    this.mapsComponent.setGeolocation().subscribe(position =>
+      this.isGeolocated = true);
   }
 
 }
