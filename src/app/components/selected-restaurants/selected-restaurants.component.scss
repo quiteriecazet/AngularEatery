@@ -130,7 +130,7 @@ textarea {
 
   .mat-expansion-panel-header-title {
     color: white;
-    font-size: 20px;
+    font-size: 18px;
     border-bottom: 8px solid;
   }
 
@@ -148,4 +148,11 @@ button.validate {
   float: right;
   margin-right: 20px;
   margin-top: 20px;
+}
+
+
+@media only screen and (max-width: 1024px) and (orientation: portrait) {
+  .results-container {
+    margin-bottom: 250px;
+  }
 }

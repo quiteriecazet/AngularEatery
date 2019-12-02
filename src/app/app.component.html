@@ -35,8 +35,7 @@
 </mat-toolbar>
 <div class="responsive-header">
   <mat-toolbar color="white" class="header">
-    <img class="logo" src="../assets/img/logo.png" routerLink="/homepage" routerLinkActive="active"
-      (click)="isOpen = false">
+    <img class="logo" src="../assets/img/logo.png" routerLink="/homepage" routerLinkActive="active" (click)="ngOnInit()">
   </mat-toolbar>
   <mat-grid-list cols="2" rowHeight="6:1" gutterSize="3px" class="tablet" (click)="isOpen = true">
     <mat-grid-tile [colspan]="1" [rowspan]="1">

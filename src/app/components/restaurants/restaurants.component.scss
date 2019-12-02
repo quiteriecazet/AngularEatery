@@ -99,3 +99,15 @@ mat-toolbar {
     width: 900px;
   }
 }
+
+@media only screen and (min-width: 268px) and (max-width: 1024px) and (orientation: landscape) {
+  .mat-toolbar-row {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (min-width: 268px) and (max-width: 1024px) and (orientation: portrait) {
+  .mat-list {
+    padding-bottom: 250px;
+  }
+}

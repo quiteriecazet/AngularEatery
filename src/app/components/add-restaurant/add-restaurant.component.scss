@@ -48,3 +48,9 @@ textarea {
     object-fit: none;
   }
 }
+
+@media only screen and (max-width: 1024px) and (orientation: portrait) {
+  .add-form {
+    margin-bottom: 250px;
+  }
+}

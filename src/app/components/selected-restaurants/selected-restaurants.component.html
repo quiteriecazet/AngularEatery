@@ -14,7 +14,7 @@
     </mat-card-actions>
   </mat-card>
 </div>
-<div *ngIf="selectedRes.length > 0">
+<div *ngIf="selectedRes.length > 0" class="results-container">
   <div *ngIf="selectedResType && selectedResType == 'fromDB'">
     <span class="infos">
       {{'filter_results_by_type' | translate}}
