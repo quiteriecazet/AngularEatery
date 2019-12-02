@@ -52,8 +52,8 @@
       </mat-expansion-panel-header>
       <div class="sub-header">
         <p class="restaurant-address">{{restaurant.address}}</p>
-        <button mat-flat-button class="white">
-          <mat-icon (click)=toggleComment(restaurant) (click)="initForm()">create</mat-icon>
+        <button mat-flat-button class="white" (click)=toggleComment(restaurant) (click)="initForm()">
+          <mat-icon>create</mat-icon>
         </button>
       </div>
       <div class="comment-area" *ngIf="commentAreaDisplay">
@@ -70,7 +70,9 @@
               <textarea matInput name="comment" formControlName="comment"
                 placeholder="Exprimez en quelques mots ce qui vous a plu ou déplu dans ce restaurant"
                 class="form-control" id="comment"></textarea>
+              <mat-hint>{{'hint_caracters_numbers' | translate}}</mat-hint>
             </mat-form-field>
+            <br>
             <ngx-stars [size]="2" color="#FFC145" initialStars="3" (ratingOutput)="onRatingSet($event)" name="notation"
               ngDefaultControl [(ngModel)]='notation' [ngModelOptions]="{standalone: true}"></ngx-stars>
             <button mat-flat-button class="second post" (click)="addComment(restaurant, $event)"

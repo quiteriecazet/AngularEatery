@@ -42,12 +42,14 @@ export class AddRestaurantComponent implements OnInit, AfterViewInit {
   lastId: number;
   restaurantForm: FormGroup;
   rating: Rating;
+  userPosition: google.maps.LatLng;
   constructor(private mapService: MapService, private geolocationService: GeolocationService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.restaurantForm;
     this.map = this.mapService.getMap();
-    //this.mapService.displayLocation();
+    this.userPosition = this.mapService.getLatLngPosition();
+    this.map.setCenter(this.userPosition);
     this.types = typesList;
     this.isConfirmation = false;
     this.foodType = { name: 'Type de cuisine', url: null };

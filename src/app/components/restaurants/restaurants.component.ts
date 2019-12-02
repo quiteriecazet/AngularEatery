@@ -51,6 +51,7 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
   options = {
     types: ["establishment"]
   }
+  userPosition: google.maps.LatLng;
   constructor(private restaurantService: RestaurantService, private mapService: MapService, 
               private geolocationService: GeolocationService, private route: ActivatedRoute,
               private _ngZone: NgZone) {
@@ -58,6 +59,8 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
 
   ngAfterViewInit() {
     this.map = this.mapService.getMap();
+    this.userPosition = this.mapService.getLatLngPosition();
+    this.map.setCenter(this.userPosition);
     this.service = new google.maps.places.PlacesService(this.map);
     this.bounds = new google.maps.LatLngBounds();
     this.inputRestaurant = document.getElementById('location');
@@ -175,6 +178,13 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
         this.previousMarker = this.markers[i];
       }
     }
+  }
+
+  sortByGlobalNote(restaurants) {
+    restaurants.sort((a, b) => {
+      return b.rating - a.rating;
+    })
+    this.results = restaurants;
   }
 
   sortByPriceRange(restaurants) {

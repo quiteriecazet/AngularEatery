@@ -50,8 +50,8 @@
   </form>
 
   <div *ngIf="isConfirmation && newRestaurant">
-    <p>{{'added_element' | translate}}
-      <br>{{'recap' | translate}}</p>
+    <p class="infos">{{'added_element' | translate}}
+      <br><br>{{'recap' | translate}} :</p>
     <mat-card class="example-card">
       <mat-card-header>
         <mat-card-title>
@@ -68,7 +68,7 @@
         <div class="type">{{newRestaurant.type}}</div>
         <div>{{newRestaurant.description}}</div><br>
         <hr>
-        {{'my_comment' | translate}}<br>
+        <p>{{'my_comment' | translate}}</p><br>
         {{newRestaurant.ratings[0].comment}}
         <ngx-stars [size]="2" readonly="true" color="#FFC145" initialStars="{{newRestaurant.ratings[0].notation}}"
           id="notation"></ngx-stars>

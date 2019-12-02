@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input, AfterContentInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
-import { MatToolbarModule, MatMenuModule, MatButtonModule, MatSidenav, MatGridListModule } from '@angular/material';
+import { MatToolbarModule, MatMenuModule, MatButtonModule, MatSidenav, MatGridListModule, MatBottomSheet, MatBottomSheetRef} from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterOutlet, Router, NavigationExtras } from '@angular/router';
 import { Restaurant } from './restaurant';
@@ -16,6 +16,7 @@ import { GeolocationService } from './services/geolocation/geolocation.service';
 import { MapService } from './services/map/map.service'
 import { Observable, of } from 'rxjs';
 import { Geolocation } from '../app/geolocation';
+import { LegalMentionsSheet } from './dialogs/legal-mentions-dialog/legal-mentions-dialog';
 
 @Component({
   selector: 'app-root',
@@ -23,13 +24,16 @@ import { Geolocation } from '../app/geolocation';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnInit, AfterContentInit {
+export class AppComponent implements OnInit, AfterViewInit {
   result: boolean;
+  userPosition: google.maps.LatLng;
+  isOpen: boolean;
   constructor(
     private translate: TranslateService,
     private geolocationService: GeolocationService,
     private mapService: MapService,
-    private router: Router
+    private router: Router,
+    private _bottomSheet: MatBottomSheet
   ) {
     translate.setDefaultLang('fr');
     translate.use('fr');
@@ -50,14 +54,16 @@ export class AppComponent implements OnInit, AfterContentInit {
 
   title = 'Eatery App';
 
-  ngOnInit() {
+  ngOnInit() {   
+    this.isOpen = false;
     this.router.navigate(['']);
     this.mapsComponent.setGeolocation();
     this.isGeolocated = true;
     this.getSelectedRestaurants();
   }
 
-  ngAfterContentInit() {
+  ngAfterViewInit() {
+    this.isOpen = false;
     this.router.navigate(['']);
     this.mapsComponent.setGeolocation();
     this.isGeolocated = true;
@@ -98,6 +104,14 @@ export class AppComponent implements OnInit, AfterContentInit {
       this.isGeolocated = true);
   }
 
+  openLegalMentions(): void {
+    this._bottomSheet.open(LegalMentionsSheet)
+  }
+
+  displayRouterView(): void {
+    this.isOpen = true;
+    console.log(this.isOpen)
+  }
 }
 
 

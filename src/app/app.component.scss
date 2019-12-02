@@ -1,15 +1,31 @@
 @import "../assets/sass/variables.scss";
 
-.mat-toolbar {
+.mat-toolbar.header {
   color: $blue !important;
   background-color: white !important;
   font-size: 13px;
   height: 111px;
   justify-content: space-around;
+  border-bottom: 7px solid $yellow;
 }
 
-.header {
-  border-bottom: 7px solid $yellow;
+.mat-toolbar.footer {
+  background-color: $blue !important;
+  bottom: 0px;
+  position: fixed;
+  height: 40px;
+  z-index: 10;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  p,
+  a {
+    cursor: pointer;
+    color: white;
+  }
 }
 
 .logo {
@@ -52,6 +68,7 @@ mat-icon {
 .router-container {
   max-width: 50%;
   overflow-y: auto;
+  padding-bottom: 125px;
 }
 
 .map-container {
@@ -70,14 +87,6 @@ mat-toolbar {
   flex-grow: 0;
 }
 
-.footer {
-  background-color: $blue !important;
-  bottom: 0px;
-  position: fixed;
-  height: 40px;
-  z-index: 10;
-}
-
 :host {
   display: flex;
   flex-direction: column;
@@ -88,9 +97,29 @@ app-maps {
   height: 100%;
 }
 
+@media screen and (min-width: 1301px) {
+  .footer .address-change {
+    display: none;
+  }
+}
+
 @media screen and (min-width: 1024px) and (max-width: 1300px) {
-  .mat-toolbar {
-    font-size: 10px;
+  .mat-toolbar.header {
+    font-size: 10px !important;
+    justify-content: initial !important;
+    padding: 0px;
+
+    .logo {
+      width: 83px;
+    }
+
+    .menu-header {
+      font-size: 10px;
+    }
+
+    .address-change {
+      display: none;
+    }
   }
 
   .router-container {
@@ -99,22 +128,14 @@ app-maps {
 }
 
 @media screen and (min-width: 1024px) {
-  mat-grid-list {
-    display: none;
-  }
-
-  .responsive-container {
+  .responsive-header {
     display: none;
   }
 }
 
 @media screen and (min-width: 268px) and (max-width: 1023px) {
-  mat-toolbar-row.menu-toolbar {
+  .header.main {
     display: none;
-  }
-
-  .mat-toolbar-multiple-rows {
-    min-height: 90px;
   }
 
   mat-grid-tile {
@@ -138,6 +159,10 @@ app-maps {
         color: white;
       }
     }
+
+    .header .address-change {
+      display: none;
+    }
   }
 
   .web-container {
@@ -147,16 +172,15 @@ app-maps {
   .main-container {
     flex-direction: column-reverse;
     justify-content: flex-end;
-    margin-top: -20px;
+    margin-top: -2px;
 
     .map-container {
-      flex-basis: 30%;
       min-height: 250px;
     }
 
     .router-container {
       min-width: 100%;
-      padding-bottom: 25px;
+      min-height: 70%;
     }
   }
 }

@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import {
   MatGridListModule, MatToolbarModule, MatExpansionModule, MatButtonToggleModule, MatCardModule, MatButtonModule,
   MatMenuModule, MatDividerModule, MatListModule, MatSidenavModule, MatFormFieldModule, MatInputModule, MatChipsModule,
-  MatSnackBarModule, MatDialogModule, MAT_DIALOG_DATA, MatDialogRef, MatProgressSpinnerModule
+  MatSnackBarModule, MatDialogModule, MAT_DIALOG_DATA, MatDialogRef, MatProgressSpinnerModule, MatBottomSheetModule
 } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
@@ -28,6 +28,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ModifyAddressDialog } from './dialogs/modify-address-dialog/modify-address-dialog';
+import { LegalMentionsSheet } from './dialogs/legal-mentions-dialog/legal-mentions-dialog';
 
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' },
@@ -49,7 +50,8 @@ export const apiKey = 'AIzaSyDKfiljHPgRVtQZdjApoZdgJqHK8wyanpA';
     MapsComponent,
     UniqueResultsPipe,
     AddRestaurantComponent,
-    ModifyAddressDialog
+    ModifyAddressDialog,
+    LegalMentionsSheet
   ],
   imports: [
     BrowserModule,
@@ -71,6 +73,7 @@ export const apiKey = 'AIzaSyDKfiljHPgRVtQZdjApoZdgJqHK8wyanpA';
     MatSnackBarModule,
     MatButtonToggleModule,
     MatProgressSpinnerModule,
+    MatBottomSheetModule,
     MatDialogModule,
     NgbModule,
     GooglePlaceModule,
@@ -91,7 +94,8 @@ export const apiKey = 'AIzaSyDKfiljHPgRVtQZdjApoZdgJqHK8wyanpA';
     })
   ],
   entryComponents: [
-    ModifyAddressDialog
+    ModifyAddressDialog,
+    LegalMentionsSheet
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },

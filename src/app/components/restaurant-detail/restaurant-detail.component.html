@@ -18,7 +18,7 @@
 
   </div>
 
-  <mat-card *ngFor="let review of restaurant.reviews" class="comments" (click)="togglePanel()">
+  <mat-card *ngFor="let review of restaurant.reviews" class="comments">
     <mat-card-header>
       <mat-card-title>{{review.author_name}}</mat-card-title>
       <mat-card-subtitle>{{review.rating}}{{'notation' | translate}} -

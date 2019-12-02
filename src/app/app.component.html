@@ -1,6 +1,7 @@
-<mat-toolbar color="white" class="header">
-  <img class="logo" src="../assets/img/logo.png" routerLink="/homepage" routerLinkActive="active">
-  <div class="menu-header">
+<mat-toolbar color="white" class="header main">
+  <img class="logo" src="../assets/img/logo.png" routerLink="/homepage" routerLinkActive="active" (click)="ngOnInit()"
+    (click)="isOpen = false">
+  <div class="menu-header" (click)="isOpen = true">
     <span (click)="displayRestaurants('')">
       <mat-icon matSuffix>room</mat-icon>
       {{'our_restaurants' | translate}}
@@ -16,12 +17,12 @@
         <button mat-menu-item *ngFor="let type of types" (click)="displayRestaurants(type)">{{type}}</button>
       </mat-menu>
     </span>
-    <mat-icon matSuffix>public</mat-icon>
     <span routerLink="/restaurants" routerLinkActive="active">
+      <mat-icon matSuffix>public</mat-icon>
       {{'places_search' | translate}}
     </span>
-    <mat-icon matSuffix>edit</mat-icon>
     <span routerLink="/add-restaurant" routerLinkActive="active">
+      <mat-icon matSuffix>edit</mat-icon>
       {{'add_an_address' | translate}}
     </span>
   </div>
@@ -32,45 +33,50 @@
       {{'get_geoloc' | translate}}</button>
   </div>
 </mat-toolbar>
-
-<mat-grid-list cols="2" rowHeight="6:1" gutterSize="3px" class="tablet">
-  <mat-grid-tile [colspan]="1" [rowspan]="1">
-    <span (click)="displayRestaurants('')">
-      {{'our_restaurants' | translate}}
-      <mat-icon matSuffix>room</mat-icon>
-    </span>
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="1" [rowspan]="1">
-    <span (click)="displayRestaurants('fromDB')">
-      {{'referenced_restaurants' | translate}}
-      <mat-icon matSuffix>thumb_up_alt</mat-icon>
-    </span>
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="1" [rowspan]="1">
-    <span [matMenuTriggerFor]="menu" (click)="getAllTypes()" class="chosenType">
-      {{'popular_cuisine_types' | translate}}
-      <mat-icon matSuffix>local_dining</mat-icon>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item *ngFor="let type of types" (click)="displayRestaurants(type)">{{type}}</button>
-      </mat-menu>
-    </span>
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="1" [rowspan]="1">
-    <span routerLink="/add-restaurant" routerLinkActive="active">
-      {{'add_an_address' | translate}}
-      <mat-icon matSuffix>edit</mat-icon>
-    </span>
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="2" [rowspan]="1">
-    <span routerLink="/restaurants" routerLinkActive="active">
-      {{'places_search' | translate}}
-      <mat-icon matSuffix>public</mat-icon>
-    </span>
-  </mat-grid-tile>
-</mat-grid-list>
+<div class="responsive-header">
+  <mat-toolbar color="white" class="header">
+    <img class="logo" src="../assets/img/logo.png" routerLink="/homepage" routerLinkActive="active"
+      (click)="isOpen = false">
+  </mat-toolbar>
+  <mat-grid-list cols="2" rowHeight="6:1" gutterSize="3px" class="tablet" (click)="isOpen = true">
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <span (click)="displayRestaurants('')">
+        {{'our_restaurants' | translate}}
+        <mat-icon matSuffix>room</mat-icon>
+      </span>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <span (click)="displayRestaurants('fromDB')">
+        {{'referenced_restaurants' | translate}}
+        <mat-icon matSuffix>thumb_up_alt</mat-icon>
+      </span>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <span [matMenuTriggerFor]="menu" (click)="getAllTypes()" class="chosenType">
+        {{'popular_cuisine_types' | translate}}
+        <mat-icon matSuffix>local_dining</mat-icon>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item *ngFor="let type of types" (click)="displayRestaurants(type)">{{type}}</button>
+        </mat-menu>
+      </span>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <span routerLink="/add-restaurant" routerLinkActive="active">
+        {{'add_an_address' | translate}}
+        <mat-icon matSuffix>edit</mat-icon>
+      </span>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="1">
+      <span routerLink="/restaurants" routerLinkActive="active">
+        {{'places_search' | translate}}
+        <mat-icon matSuffix>public</mat-icon>
+      </span>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
 
 <div class="main-container">
-  <div class="router-container">
+  <div class="router-container" *ngIf="isOpen">
     <router-outlet (activate)='onActivate($event)'></router-outlet>
   </div>
   <div class="map-container">
@@ -78,4 +84,12 @@
   </div>
 </div>
 <mat-toolbar class="footer">
+  <p (click)="openLegalMentions()">Mentions Légales</p>
+  <div class="address-change">
+    <button mat-flat-button class="flat address" (click)="modifyAddress()" *ngIf="isGeolocated">
+      {{'modify_address' | translate}}</button>
+    <button mat-flat-button class="flat address" (click)="setGeolocation()" *ngIf="!isGeolocated">
+      {{'get_geoloc' | translate}}</button>
+  </div>
+  <p><a href="https://github.com/quiteriecazet/Eatery" target="_blank">GitHub</a></p>
 </mat-toolbar>
