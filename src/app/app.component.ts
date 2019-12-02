@@ -14,6 +14,7 @@ import { AddRestaurantComponent } from '../app/components/add-restaurant/add-res
 import { SelectedRestaurantsComponent } from '../app/components/selected-restaurants/selected-restaurants.component';
 import { GeolocationService } from './services/geolocation/geolocation.service';
 import { MapService } from './services/map/map.service'
+import { RestaurantService } from './services/restaurant/restaurant.service'
 import { Observable, of } from 'rxjs';
 import { Geolocation } from '../app/geolocation';
 import { LegalMentionsSheet } from './dialogs/legal-mentions-dialog/legal-mentions-dialog';
@@ -33,7 +34,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private geolocationService: GeolocationService,
     private mapService: MapService,
     private router: Router,
-    private _bottomSheet: MatBottomSheet
+    private _bottomSheet: MatBottomSheet,
+    private restaurantService: RestaurantService
   ) {
     translate.setDefaultLang('fr');
     translate.use('fr');
@@ -74,7 +76,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   getSelectedRestaurants(): void {
-    this.mapService.getSelectedRestaurants().subscribe(selectedRestaurants => {
+    this.restaurantService.getSelectedRestaurants().subscribe(selectedRestaurants => {
       this.selectedRestaurants = selectedRestaurants;
     });
   }

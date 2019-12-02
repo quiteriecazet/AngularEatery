@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { of, BehaviorSubject, Observable } from 'rxjs';
-import { restaurantsList, Restaurant } from '../../restaurant';
 import { } from 'googlemaps';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
 import { MatSnackBar, MatSnackBarConfig, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -16,7 +15,6 @@ export class MapService {
   markers;
   userPosition;
   userAddress;
-  selectedRestaurants = restaurantsList;
   geocoder = new google.maps.Geocoder;
   address;
   LatLngPosition: google.maps.LatLng;
@@ -94,11 +92,7 @@ export class MapService {
     return this.markers;
   }
 
-  public getSelectedRestaurants(): Observable<Restaurant[]> {
-    return of(this.selectedRestaurants);
-  }
-
-  setRestaurantPosition(restaurant) {
+   setRestaurantPosition(restaurant) {
     for (let i = 0; i < this.markers.length; i++) {
       if (restaurant.lat && restaurant.lat === this.markers[i].position.lat()
         || restaurant.geometry && restaurant.geometry.location.lat() === this.markers[i].position.lat()) {

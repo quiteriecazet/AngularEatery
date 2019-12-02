@@ -13,6 +13,7 @@ import { } from 'googlemaps';
 import { MapsComponent } from '../maps/maps.component';
 import { NgxStarsModule } from 'ngx-stars';
 import { MapService } from '../../services/map/map.service';
+import { RestaurantService } from '../../services/restaurant/restaurant.service'
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
 import { Geolocation } from '../../geolocation';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -53,7 +54,12 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
   notation: any;
   comment: Rating;
   panorama: any;
-  constructor(private activatedRoute: ActivatedRoute, private mapService: MapService, private geolocationService: GeolocationService, private formBuilder: FormBuilder) { }
+  constructor(
+    private activatedRoute: ActivatedRoute, 
+    private mapService: MapService, 
+    private geolocationService: GeolocationService, 
+    private restaurantService: RestaurantService,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.map = this.mapService.getMap();
@@ -85,7 +91,7 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
   }
 
   getSelectedRestaurants(): void {
-    this.mapService.getSelectedRestaurants().subscribe(selectedRestaurants => {
+    this.restaurantService.getSelectedRestaurants().subscribe(selectedRestaurants => {
       this.selectedRestaurants = selectedRestaurants;
     });
   }
