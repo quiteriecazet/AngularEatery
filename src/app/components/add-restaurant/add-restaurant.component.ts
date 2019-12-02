@@ -11,6 +11,7 @@ import { Restaurant } from '../../restaurant.model';
 import { Rating } from '../../rating.model';
 import { MapService } from '../../services/map/map.service';
 import { GeolocationService } from '../../services/geolocation/geolocation.service';
+import { RestaurantService } from '../../services/restaurant/restaurant.service'
 import { ChangeDetectorRef,AfterContentChecked} from '@angular/core';
 
 @Component({
@@ -43,7 +44,11 @@ export class AddRestaurantComponent implements OnInit, AfterViewInit {
   restaurantForm: FormGroup;
   rating: Rating;
   userPosition: google.maps.LatLng;
-  constructor(private mapService: MapService, private geolocationService: GeolocationService, private formBuilder: FormBuilder) { }
+  constructor(
+    private mapService: MapService, 
+    private geolocationService: GeolocationService, 
+    private restaurantService: RestaurantService,
+    private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.restaurantForm;
@@ -101,6 +106,7 @@ export class AddRestaurantComponent implements OnInit, AfterViewInit {
     )
     this.newRestaurant = restaurant;
     this.isConfirmation = true;
+    this.restaurantService.addRestaurant(this.newRestaurant);
   }
 
 

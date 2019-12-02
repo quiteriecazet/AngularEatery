@@ -24,6 +24,6 @@ export class RestaurantService {
   }
 
   addRestaurant(restaurant) {
-    
+    this.selectedRestaurants.push(restaurant);
   }
 }
