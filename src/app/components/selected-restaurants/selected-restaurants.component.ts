@@ -2,7 +2,8 @@ import { Component, Directive, HostListener, Input, ViewChild, NgZone, OnInit, E
 import { MatGridListModule, MatToolbarModule, MatExpansionPanel } from '@angular/material';
 import {
   MatCardModule, MatListModule, MatDividerModule, MatSidenav, MatButtonToggleModule,
-  MatExpansionModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatChipsModule
+  MatExpansionModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatChipsModule,
+  MatTooltipModule
 } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterOutlet, ActivatedRoute } from '@angular/router';
@@ -51,6 +52,7 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
   previousCurrent: any;
   notation: any;
   comment: Rating;
+  panorama: any;
   constructor(private activatedRoute: ActivatedRoute, private mapService: MapService, private geolocationService: GeolocationService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -196,6 +198,19 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
 
   onRatingSet($event) {
     this.notation = $event;
+  }
+
+  displayStreetView(restaurant) {
+    console.log(restaurant)
+    this.panorama = new google.maps.StreetViewPanorama(
+      document.getElementById('panorama' + restaurant.id), {
+      position: { lat: restaurant.lat, lng: restaurant.long },
+      pov: {
+        heading: 34,
+        pitch: 10
+      }
+    });
+    this.map.setStreetView(this.panorama);
   }
 }
 

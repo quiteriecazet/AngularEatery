@@ -6,7 +6,8 @@ import { GeolocationService } from '../../services/geolocation/geolocation.servi
 import { ActivatedRoute } from '@angular/router';
 import {
   MatCardModule, MatListModule, MatDividerModule, MatInputModule, MatSidenavModule, MatButtonToggleModule,
-  MatExpansionModule, MatFormFieldModule, MatButtonModule, MatMenuModule, MatChipsModule, MatToolbarModule, MatDialogModule
+  MatExpansionModule, MatFormFieldModule, MatButtonModule, MatMenuModule, MatChipsModule, MatToolbarModule, MatDialogModule,
+  MatTooltipModule
 } from '@angular/material';
 import { apiKey } from '../../app.module';
 import { MapsComponent } from '../maps/maps.component';

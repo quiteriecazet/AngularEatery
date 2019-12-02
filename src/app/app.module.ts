@@ -7,7 +7,8 @@ import { FormsModule } from '@angular/forms';
 import {
   MatGridListModule, MatToolbarModule, MatExpansionModule, MatButtonToggleModule, MatCardModule, MatButtonModule,
   MatMenuModule, MatDividerModule, MatListModule, MatSidenavModule, MatFormFieldModule, MatInputModule, MatChipsModule,
-  MatSnackBarModule, MatDialogModule, MAT_DIALOG_DATA, MatDialogRef, MatProgressSpinnerModule, MatBottomSheetModule
+  MatSnackBarModule, MatDialogModule, MAT_DIALOG_DATA, MatDialogRef, MatProgressSpinnerModule, MatBottomSheetModule,
+  MatTooltipModule
 } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
@@ -74,6 +75,7 @@ export const apiKey = 'AIzaSyDKfiljHPgRVtQZdjApoZdgJqHK8wyanpA';
     MatButtonToggleModule,
     MatProgressSpinnerModule,
     MatBottomSheetModule,
+    MatTooltipModule,
     MatDialogModule,
     NgbModule,
     GooglePlaceModule,

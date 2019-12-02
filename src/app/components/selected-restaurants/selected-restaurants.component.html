@@ -38,7 +38,7 @@
   <mat-accordion>
     <mat-expansion-panel *ngFor="let restaurant of selectedRes" [expanded]="panelOpenState"
       (mouseover)="getPositionOnMap(restaurant)" id="{{restaurant.id}}">
-      <mat-expansion-panel-header (click)="commentAreaDisplay=false">
+      <mat-expansion-panel-header (click)="commentAreaDisplay=false" (click)="displayStreetView(restaurant)">
         <mat-panel-title class="restaurant-title">
           {{restaurant.name}}
         </mat-panel-title>
@@ -46,15 +46,22 @@
           <mat-chip-list>
             <mat-chip selected class="chip-first" (click)="displayRestaurants(restaurant.type)">{{restaurant.type}}
             </mat-chip>
-            <mat-chip selected class="chip-second"> {{restaurant.average}} /5</mat-chip>
+            <mat-chip selected class="chip-second"
+              matTooltip="Moyenne recueillie sur {{restaurant.ratings.length}} avis"> {{restaurant.average}} /5
+            </mat-chip>
           </mat-chip-list>
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div class="sub-header">
         <p class="restaurant-address">{{restaurant.address}}</p>
-        <button mat-flat-button class="white" (click)=toggleComment(restaurant) (click)="initForm()">
-          <mat-icon>create</mat-icon>
-        </button>
+        <div>
+          <!-- <button mat-flat-button class="white" (click)="displayStreetView(restaurant)">
+            <mat-icon>visibility</mat-icon>
+          </button> -->
+          <button mat-flat-button class="white" (click)=toggleComment(restaurant) (click)="initForm()">
+            <mat-icon>create</mat-icon>
+          </button>
+        </div>
       </div>
       <div class="comment-area" *ngIf="commentAreaDisplay">
         <mat-card class="example-container comment">
@@ -80,6 +87,7 @@
           </form>
         </mat-card>
       </div>
+      <div id="panorama{{restaurant.id}}"></div>
       <mat-card *ngFor="let rating of restaurant.ratings" class="comments" (click)="togglePanel()">
         <mat-card-header>
           <div mat-card-avatar></div>

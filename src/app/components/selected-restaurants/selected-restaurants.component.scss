@@ -5,6 +5,12 @@
   cursor: pointer;
 }
 
+div[id^="panorama"] {
+  height: 260px;
+  width: 100%;
+  margin-top: 15px;
+}
+
 .chevron {
   margin: 15px;
 }
@@ -150,6 +156,9 @@ button.validate {
   margin-top: 20px;
 }
 
+button.white {
+  margin-right: 20px;
+}
 
 @media only screen and (max-width: 1024px) and (orientation: portrait) {
   .results-container {
