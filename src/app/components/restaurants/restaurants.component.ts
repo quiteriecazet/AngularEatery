@@ -53,9 +53,9 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
     types: ["establishment"]
   }
   userPosition: google.maps.LatLng;
-  constructor(private restaurantService: RestaurantService, private mapService: MapService, 
-              private geolocationService: GeolocationService, private route: ActivatedRoute,
-              private _ngZone: NgZone) {
+  constructor(private restaurantService: RestaurantService, private mapService: MapService,
+    private geolocationService: GeolocationService, private route: ActivatedRoute,
+    private _ngZone: NgZone) {
   }
 
   ngAfterViewInit() {
@@ -160,10 +160,9 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
           this.selectedRestaurant.photos[0] = this.photo;
         }
         if (!this.map.getBounds().contains(this.selectedRestaurant.geometry.location)) {
-         this.mapService.setGeolocation(this.selectedRestaurant.geometry.location) 
+          this.mapService.setGeolocation(this.selectedRestaurant.geometry.location)
         };
         this.restaurantService.getRestaurantDetails(this.selectedRestaurant);
-        //this.restaurantDetailComponent.showDetails(restaurant);
       }
     });
   }
@@ -223,7 +222,18 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
   goBackToResults() {
     this.showDetails = false;
     this.value = "";
-    this.ngAfterViewInit();
+
+    setTimeout(() => {
+      this.inputRestaurant = document.getElementById('location');
+      this.autocomplete = new google.maps.places.Autocomplete(this.inputRestaurant, this.options);
+      this.autocomplete.addListener('place_changed', () => {
+        this.inputResult = this.autocomplete.getPlace();
+        if (this.inputResult.geometry) {
+          this.getDetails(this.inputResult);
+          this.value = "";
+        }
+      });
+    }, 2000)
   }
 
 }

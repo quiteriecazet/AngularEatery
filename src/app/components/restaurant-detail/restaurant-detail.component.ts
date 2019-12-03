@@ -28,10 +28,6 @@ export class RestaurantDetailComponent implements OnInit {
     this.restaurant = this.restaurantService.restaurant;
   }
 
-  showDetails(restaurant) {
-    this.restaurant = restaurant;
-  }
-
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

@@ -16,7 +16,6 @@ export class MapsComponent implements OnInit {
   map;
   marker;
   markers: any = [];
-  LatLngPosition;
 
   @ViewChild('gmap') gmapElement: any;
   position: any;

@@ -27,6 +27,7 @@ import { Rating } from 'src/app/rating.model';
 export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
 
   @ViewChild(MapsComponent)
+  private mapsComponent: MapsComponent;
   @ViewChildren(MatExpansionPanel) viewPanels: QueryList<MatExpansionPanel>
   selectedRestaurants: Restaurant[];
   geolocation;
@@ -36,7 +37,6 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
   type;
   markers: any = [];
   selectedRes: any = [];
-  selectedResType: string;
   position;
   types: any = [];
   hasResults = false;
@@ -54,10 +54,12 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
   notation: any;
   comment: Rating;
   panorama: any;
+  bounds: google.maps.LatLngBounds;
+  selectedRestaurantType: any;
   constructor(
-    private activatedRoute: ActivatedRoute, 
-    private mapService: MapService, 
-    private geolocationService: GeolocationService, 
+    private activatedRoute: ActivatedRoute,
+    private mapService: MapService,
+    private geolocationService: GeolocationService,
     private restaurantService: RestaurantService,
     private formBuilder: FormBuilder) { }
 
@@ -80,7 +82,7 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
 
   clearMap() {
     this.selectedRes = [];
-    this.selectedResType = null;
+    this.selectedRestaurantType = null;
     this.hasResults = false;
     if (this.markers && this.markers.length > 0) {
       for (let i = 0; i < this.markers.length; i++) {
@@ -99,51 +101,46 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
   displayRestaurants(type) {
     this.getSelectedRestaurants();
     this.clearMap();
+    this.bounds = new google.maps.LatLngBounds();
     if (this.viewPanels) {
       this.viewPanels.forEach(p => p.close());
     }
     for (let i = 0; i < this.selectedRestaurants.length; i++) {
-      const pos = {
+      const restaurantPosition = {
         lat: this.selectedRestaurants[i].lat,
         lng: this.selectedRestaurants[i].long
       };
-      if (pos && type == null && this.map.getBounds().contains(pos)
-        || pos && this.selectedRestaurants[i].type === type && this.map.getBounds().contains(pos) || type === 'fromDB') {
+      if (restaurantPosition && type == "" && this.map.getBounds().contains(restaurantPosition)
+        || restaurantPosition && this.selectedRestaurants[i].type === type && this.map.getBounds().contains(restaurantPosition)
+        || type === 'fromDB') {
 
         this.marker = new google.maps.Marker({
           map: this.map,
           animation: google.maps.Animation.DROP,
-          position: pos,
+          position: restaurantPosition,
           cursor: 'pointer'
         });
+
         this.getAverageNotation(this.selectedRestaurants[i]);
-        this.map.panTo(pos);
         this.markers.push(this.marker);
-        this.selectedResType = type;
+        this.selectedRestaurantType = type;
         this.selectedRes.push(this.selectedRestaurants[i]);
         this.hasResults = true;
       }
     }
 
-    this.markers.forEach((marker) => {
-      marker.addListener('mouseover', () => {
-        if (this.previousCurrent) {
-          this.previousCurrent.setIcon();
-        }
-        this.marker.setIcon('../../assets/img/pointer-specific.png');
-        for (let i = 0; i < this.selectedRestaurants.length; i++) {
-          if (this.marker.position.lat() === this.selectedRestaurants[i].lat && this.marker.position.lng() === this.selectedRestaurants[i].long) {
-            this.currentRestaurant = document.getElementById('' + this.selectedRestaurants[i].id + '');
-            this.currentRestaurant.classList.add("current");
-            this.previousCurrent = marker;
-          }
-        }
-      })
+    if (this.markers.length > 0 && type === 'fromDB') {
+      for (let i = 0; i < this.markers.length; i++) {
+        this.bounds.extend(this.markers[i].getPosition())
+      }
+      this.map.fitBounds(this.bounds);
+    }
 
-      this.marker.addListener('mouseout', () => {
-        this.currentRestaurant.classList.remove("current");
-      })
-    })
+    this.map.addListener('dragend', () => {
+      window.setTimeout(() => {
+        this.displayRestaurants(null);
+      }, 500);
+    });
   }
 
   onDragEvent($event) {

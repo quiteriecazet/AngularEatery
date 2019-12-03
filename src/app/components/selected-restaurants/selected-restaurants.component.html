@@ -15,15 +15,15 @@
   </mat-card>
 </div>
 <div *ngIf="selectedRes.length > 0" class="results-container">
-  <div *ngIf="selectedResType && selectedResType == 'fromDB'">
+  <div *ngIf="selectedRestaurantType && selectedRestaurantType == 'fromDB'">
     <span class="infos">
       {{'filter_results_by_type' | translate}}
     </span>
   </div>
-  <div *ngIf="selectedResType && selectedResType != 'fromDB'" class="selectedType">
+  <div *ngIf="selectedRestaurantType && selectedRestaurantType != 'fromDB'" class="selectedType">
     <mat-divider></mat-divider>
     <br>
-    {{selectedResType}}
+    {{selectedRestaurantType}}
     <br>
     <mat-divider></mat-divider>
   </div>
@@ -100,6 +100,6 @@
       </mat-card>
     </mat-expansion-panel>
   </mat-accordion>
-  <button mat-flat-button class="validate" *ngIf="selectedResType && selectedResType != 'fromDB'"
+  <button mat-flat-button class="validate" *ngIf="selectedRestaurantType && selectedRestaurantType != 'fromDB'"
     (click)="displayRestaurants('fromDB')">{{'remove_filter' | translate}}</button>
 </div>
