@@ -8,15 +8,16 @@
   <br>
   <form class="example-form">
     <mat-form-field class="example-full-width" (onkeydown)="updateUserPosition(data.newValue)">
-      <input matInput id="location" autocomplete="on" [(ngModel)]="data.newValue" name="address" placeholder="Adresse" autofocus cdkFocusInitial>
+      <input matInput id="location" autocomplete="on" [(ngModel)]="data.newValue" name="address" placeholder="Adresse"
+        autofocus cdkFocusInitial>
     </mat-form-field>
   </form>
   <div *ngIf="hasNewAddress">
-    {{'address_confirmation' | translate }}
-    <br>
-    {{userNewPosition.formatted_address}}
+    <p class="medium-title">{{'address_confirmation' | translate }}</p>
+    <p>{{userNewPosition.formatted_address}}</p>
   </div>
 </div>
+<br>
 <div mat-dialog-actions>
   <button mat-flat-button (click)="onNoClick()">{{'button_back' | translate}}</button>
   <button mat-flat-button class="validate" [mat-dialog-close]="userNewPosition">{{'button_val' | translate}}</button>

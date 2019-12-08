@@ -31,9 +31,9 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
   lat: number;
   lng: number;
   results: { forEach: (arg0: (item: any) => void) => void; };
-  location: { lat: number; lng: number; };
+  mapLocation: { lat: number; lng: number; };
   input: any;
-  pos: { lat: any; lng: any; };
+  position: { lat: any; lng: any; };
   marker;
   distance: any;
   previousMarker: { setIcon: () => void; };
@@ -53,6 +53,7 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
     types: ["establishment"]
   }
   userPosition: google.maps.LatLng;
+  subscription: any;
   constructor(private restaurantService: RestaurantService, private mapService: MapService,
     private geolocationService: GeolocationService, private route: ActivatedRoute,
     private _ngZone: NgZone) {
@@ -60,23 +61,17 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
 
   ngAfterViewInit() {
     this.map = this.mapService.getMap();
-    this.userPosition = this.mapService.getLatLngPosition();
+    this.subscription = this.mapService.getLatLngPosition().subscribe(position => {
+      this.userPosition = position
+    });
     this.map.setCenter(this.userPosition);
     this.service = new google.maps.places.PlacesService(this.map);
     this.bounds = new google.maps.LatLngBounds();
-    this.inputRestaurant = document.getElementById('location');
-    this.autocomplete = new google.maps.places.Autocomplete(this.inputRestaurant, this.options);
-    this.autocomplete.addListener('place_changed', () => {
-      this.inputResult = this.autocomplete.getPlace();
-      if (this.inputResult.geometry) {
-        this.getDetails(this.inputResult);
-        this.value = "";
-      }
-    });
+    this.activateAutocomplete();
   }
 
   ngOnDestroy() {
-    this.mapService.clearMap(this.markers);
+    this.subscription.unsubscribe();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -88,50 +83,70 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
     });
   }
 
-  searchAround() {
-    this.clearMap();
+  activateAutocomplete() {
+    this.inputRestaurant = document.getElementById('location');
+    this.autocomplete = new google.maps.places.Autocomplete(this.inputRestaurant, this.options);
+    this.autocomplete.addListener('place_changed', () => {
+      this.inputResult = this.autocomplete.getPlace();
+      if (this.inputResult.geometry) {
+        this.showDetails = true;
+        this.selectedRestaurant = this.inputResult;
+        this.value = "";
+        this.displaySelectedRestaurant();
+      }
+    });
+  }
+
+  searchAround(mapLocation) {
+    this.mapService.clearMap();
+
     if (!this.map) {
       this.ngAfterViewInit();
     }
-    this.lat = this.map.getCenter().lat();
-    this.lng = this.map.getCenter().lng();
-    this.location = { lat: this.lat, lng: this.lng };
+
+    if (!mapLocation) {
+      mapLocation = this.userPosition;
+    }
+
     this.service.nearbySearch({
-      location: this.location,
+      location: mapLocation,
       radius: 10000,
       type: ['restaurant']
     }, (results: any, status: google.maps.places.PlacesServiceStatus) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         this.results = results;
         this.results.forEach((item) => {
-          this.pos = {
+          this.position = {
             lat: item.geometry.location.lat(),
             lng: item.geometry.location.lng()
           };
           this.marker = new google.maps.Marker({
             map: this.map,
             animation: google.maps.Animation.DROP,
-            position: this.pos,
+            position: this.position,
             cursor: 'pointer'
           });
           this.markers.push(this.marker);
-          this.marker.pos = new google.maps.LatLng(this.pos.lat, this.pos.lng);
-          // this.bounds.extend(this.marker.pos);
+          this.marker.position = new google.maps.LatLng(this.position.lat, this.position.lng);
           item.distance = Math.trunc(google.maps.geometry.spherical.computeDistanceBetween
-            (this.marker.pos, new google.maps.LatLng(this.lat, this.lng)));
+            (this.marker.position, this.userPosition));
           if (item.distance > 1000) {
             item.distanceInKm = (item.distance / 1000).toString().slice(0, -1) + 'km';
           } else {
             item.distance = item.distance.toString() + 'm';
           }
         });
+        this.mapService.setMarkers(this.markers);
       }
     });
 
     this.map.addListener('dragend', () => {
       window.setTimeout(() => {
-        this.searchAround();
-      }, 1000);
+        let lat = this.map.getCenter().lat();
+        let lng = this.map.getCenter().lng();
+        var mapLocation = { lat: lat, lng: lng };
+        this.searchAround(mapLocation);
+      }, 100);
     });
 
     this.markers.forEach((marker) => {
@@ -159,12 +174,22 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
           this.photo = this.selectedRestaurant.photo.getUrl({ maxWidth: 1000, maxHeight: 1000 });
           this.selectedRestaurant.photos[0] = this.photo;
         }
-        if (!this.map.getBounds().contains(this.selectedRestaurant.geometry.location)) {
-          this.mapService.setGeolocation(this.selectedRestaurant.geometry.location)
-        };
-        this.restaurantService.getRestaurantDetails(this.selectedRestaurant);
       }
+      this.displaySelectedRestaurant();
     });
+  }
+
+  displaySelectedRestaurant() {
+    if (!this.map.getBounds().contains(this.selectedRestaurant.geometry.location)) {
+      this.selectedRestaurant.marker = new google.maps.Marker({
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        position: this.selectedRestaurant.geometry.location,
+        cursor: 'pointer'
+      });
+      this.map.setCenter(this.selectedRestaurant.geometry.location);
+    };
+    this.restaurantService.getRestaurantDetails(this.selectedRestaurant);
   }
 
   getPositionOnMap(restaurant) {
@@ -174,7 +199,7 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
           this.previousMarker.setIcon();
         }
         this.markers[i].setIcon('../../assets/img/pointer-specific.png');
-        this.map.panTo(this.markers[i].pos);
+        this.map.panTo(this.markers[i].position);
         this.previousMarker = this.markers[i];
       }
     }
@@ -215,25 +240,13 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
     this.results = restaurants;
   }
 
-  clearMap() {
-    this.markers = [];
-  }
-
   goBackToResults() {
     this.showDetails = false;
     this.value = "";
-
+    this.map.setCenter(this.userPosition);
     setTimeout(() => {
-      this.inputRestaurant = document.getElementById('location');
-      this.autocomplete = new google.maps.places.Autocomplete(this.inputRestaurant, this.options);
-      this.autocomplete.addListener('place_changed', () => {
-        this.inputResult = this.autocomplete.getPlace();
-        if (this.inputResult.geometry) {
-          this.getDetails(this.inputResult);
-          this.value = "";
-        }
-      });
-    }, 2000)
+      this.activateAutocomplete();
+    }, 1000)
   }
 
 }

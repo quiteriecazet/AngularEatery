@@ -14,6 +14,7 @@
     </mat-card-actions>
   </mat-card>
 </div>
+
 <div *ngIf="selectedRes.length > 0" class="results-container">
   <div *ngIf="selectedRestaurantType && selectedRestaurantType == 'fromDB'">
     <span class="infos">
@@ -33,6 +34,8 @@
       {{'result' | translate}}</span>
     <span mat-subheader *ngIf="selectedRes && selectedRes.length > 1">{{'we_found' | translate}} {{selectedRes.length}}
       {{'results' | translate}}</span>
+    <button mat-flat-button class="validate" *ngIf="isDragged"
+      (click)="recenterMap()">{{'recenter' | translate}}</button>
   </div>
   <br>
   <mat-accordion>

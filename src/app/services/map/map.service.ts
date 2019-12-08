@@ -21,6 +21,7 @@ export class MapService {
   constructor(public snackBar: MatSnackBar, public dialog: MatDialog, private geolocationService: GeolocationService) { }
 
   getMap() {
+    this.clearMap();
     return this.map;
   }
 
@@ -39,9 +40,13 @@ export class MapService {
       this.LatLngPosition = this.userPosition;
     }
     this.openSnackBar('Nous vous avons trouvé!', 'Fermer')
-    this.clearMap(this.markers);
+    this.clearMap();
     this.map.setCenter(this.LatLngPosition);
+    this.getLatLngPosition();
     this.getAddressFromCoordinates();
+    if (this.userPositionMarker) {
+      this.userPositionMarker.setMap(null);
+    }
     this.userPositionMarker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
@@ -79,11 +84,12 @@ export class MapService {
     }
   }
 
-  getLatLngPosition() {
+  getLatLngPosition(): Observable<any> {
     if (this.LatLngPosition) {
-      return this.LatLngPosition;
+      return of(this.LatLngPosition);
     }
   }
+
   setMarkers(markers) {
     this.markers = markers;
   }
@@ -92,7 +98,7 @@ export class MapService {
     return this.markers;
   }
 
-   setRestaurantPosition(restaurant) {
+  setRestaurantPosition(restaurant) {
     for (let i = 0; i < this.markers.length; i++) {
       if (restaurant.lat && restaurant.lat === this.markers[i].position.lat()
         || restaurant.geometry && restaurant.geometry.location.lat() === this.markers[i].position.lat()) {
@@ -114,17 +120,18 @@ export class MapService {
     });
   }
 
-  clearMap(markers?, selectedResType?) {
-    if (markers && markers.length > 0) {
-      for (let i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
+  clearMap() {
+    if (this.markers) {
+      if (this.markers.length > 0) {
+        for (let i = 0; i < this.markers.length; i++) {
+          this.markers[i].setMap(null);
+        }
+      } else if (this.markers.visible) {
+        this.markers.setMap(null);
       }
+      this.markers;
     }
-    markers = [];
-    //this.userPositionMarker ? this.userPositionMarker.setMap(null) : null;
-    if (selectedResType) {
-      selectedResType = null;
-    }
+
   }
 
   openSnackBar(message: string, action: string) {

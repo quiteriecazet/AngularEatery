@@ -56,6 +56,10 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
   panorama: any;
   bounds: google.maps.LatLngBounds;
   selectedRestaurantType: any;
+  dragListener: any;
+  subscription: any;
+  isDragged: boolean = false;
+  positionSubscription: any;
   constructor(
     private activatedRoute: ActivatedRoute,
     private mapService: MapService,
@@ -65,10 +69,15 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.map = this.mapService.getMap();
+    this.map.setZoom(13);
     this.getSelectedRestaurants();
     this.activatedRoute.fragment.subscribe(params => {
       if (params == '') {
-        this.userPosition = this.mapService.getLatLngPosition();
+        this.positionSubscription = this.mapService.getLatLngPosition().subscribe(
+          position => {
+            this.userPosition = position;
+          }
+        )
         this.map.setCenter(this.userPosition);
       }
       this.displayRestaurants(params);
@@ -77,6 +86,10 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    google.maps.event.clearListeners(this.map, 'dragend');
+    google.maps.event.removeListener(this.dragListener);
+    this.subscription ? this.subscription.unsubscribe() : null;
+    this.positionSubscription.unsubscribe();
     this.clearMap();
   }
 
@@ -84,21 +97,19 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
     this.selectedRes = [];
     this.selectedRestaurantType = null;
     this.hasResults = false;
-    if (this.markers && this.markers.length > 0) {
-      for (let i = 0; i < this.markers.length; i++) {
-        this.markers[i].setMap(null);
-      }
-    }
-    this.markers = [];
   }
 
   getSelectedRestaurants(): void {
-    this.restaurantService.getSelectedRestaurants().subscribe(selectedRestaurants => {
+    this.subscription = this.restaurantService.getSelectedRestaurants().subscribe(selectedRestaurants => {
       this.selectedRestaurants = selectedRestaurants;
     });
   }
 
-  displayRestaurants(type) {
+  displayRestaurants(type?) {
+    if (this.isDragged) {
+      !this.isDragged;
+    }
+    this.type = type;
     this.getSelectedRestaurants();
     this.clearMap();
     this.bounds = new google.maps.LatLngBounds();
@@ -111,8 +122,8 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
         lng: this.selectedRestaurants[i].long
       };
       if (restaurantPosition && type == "" && this.map.getBounds().contains(restaurantPosition)
-        || restaurantPosition && this.selectedRestaurants[i].type === type && this.map.getBounds().contains(restaurantPosition)
-        || type === 'fromDB') {
+        || restaurantPosition && this.selectedRestaurants[i].type === this.type && this.map.getBounds().contains(restaurantPosition)
+        || this.type === 'fromDB') {
 
         this.marker = new google.maps.Marker({
           map: this.map,
@@ -123,28 +134,27 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
 
         this.getAverageNotation(this.selectedRestaurants[i]);
         this.markers.push(this.marker);
-        this.selectedRestaurantType = type;
+        this.selectedRestaurantType = this.type;
         this.selectedRes.push(this.selectedRestaurants[i]);
         this.hasResults = true;
       }
     }
 
-    if (this.markers.length > 0 && type === 'fromDB') {
+    this.mapService.setMarkers(this.markers);
+
+    if (this.markers.length > 0 && this.type === 'fromDB') {
       for (let i = 0; i < this.markers.length; i++) {
         this.bounds.extend(this.markers[i].getPosition())
       }
       this.map.fitBounds(this.bounds);
     }
 
-    this.map.addListener('dragend', () => {
+    this.dragListener = this.map.addListener('dragend', () => {
       window.setTimeout(() => {
-        this.displayRestaurants(null);
+        this.isDragged = true;
+        this.displayRestaurants(this.type);
       }, 500);
     });
-  }
-
-  onDragEvent($event) {
-    this.displayRestaurants(null);
   }
 
   getAverageNotation(restaurant) {
@@ -214,6 +224,12 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
       }
     });
     this.map.setStreetView(this.panorama);
+  }
+
+  recenterMap() {
+    this.map.setCenter(this.userPosition);
+    this.isDragged = false;
+    this.displayRestaurants();
   }
 }
 

@@ -5,7 +5,8 @@
   flex-direction: inherit;
   align-items: center;
 
-  mat-card-header, mat-card-content {
+  mat-card-header,
+  mat-card-content {
     align-items: center;
     margin: 5px;
   }
@@ -20,17 +21,21 @@
   display: flex;
 }
 
-img {
-  width: 100%;
-}
-
 .restaurant-infos > div {
   min-width: 50%;
+}
+
+.rating {
+  font-size: 13px;
+  font-weight: 700;
+  color: $red;
 }
 
 mat-card {
   margin: 10px;
   padding: 10px !important;
+  font-weight: 600;
+  letter-spacing: 0.25px;
 
   mat-card-header {
     button {
@@ -39,7 +44,7 @@ mat-card {
 
     mat-card-title {
       color: $green;
-        font-size: 15px !important;
+      font-size: 15px !important;
     }
 
     mat-card-subtitle {
@@ -59,6 +64,22 @@ mat-card {
   justify-content: center;
 }
 
+.restaurant-infos mat-card {
+  border: solid 3px $red;
+}
+
+.restaurant-photo-container {
+  height: 250px;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+.comments {
+  border: solid 3px $green;
+}
 
 @media only screen and (min-device-width: 268px) and (max-device-width: 1024px) and (orientation: portrait) {
   .content {

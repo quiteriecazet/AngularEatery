@@ -37,8 +37,7 @@ export class ModifyAddressDialog implements OnInit {
     updateUserPosition(): void {
         this.userNewPosition = this.autocomplete.getPlace();
         if (this.userNewPosition.geometry) { 
-            this.hasNewAddress = true;
-            this.newUserPositionEvent.emit(this.userNewPosition);
+            this.hasNewAddress = true;           
         }
     }
 }

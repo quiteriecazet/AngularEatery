@@ -30,6 +30,7 @@
     "distance_prefix": "à",
     "add_comment": "Déposez vous aussi votre commentaire sur ce restaurant",
     "remove_filter": "Supprimer le filtre",
+    "recenter": "Recentrer la carte",
     "no_timetable_found": "Nous n'avons pas pu récupérer les horaires de ce restaurant.",
     "we_found": "Nous avons trouvé",
     "address_modification_title": "Souhaitez-vous modifier votre adresse?",

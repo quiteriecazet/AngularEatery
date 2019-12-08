@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, AfterViewInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit, AfterContentInit, OnDestroy } from '@angular/core';
 import { } from 'googlemaps';
 import { MapsComponent } from '../maps/maps.component';
 import { MatGridList, MatFormFieldModule, MatButtonModule, MatMenuModule, MatToolbarModule, MatCardModule } from '@angular/material';
@@ -19,7 +19,7 @@ import { ChangeDetectorRef,AfterContentChecked} from '@angular/core';
   templateUrl: './add-restaurant.component.html',
   styleUrls: ['./add-restaurant.component.scss']
 })
-export class AddRestaurantComponent implements OnInit, AfterViewInit {
+export class AddRestaurantComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild(MapsComponent)
   map;
@@ -33,7 +33,6 @@ export class AddRestaurantComponent implements OnInit, AfterViewInit {
   restaurant = {};
   isConfirmation;
   latLng;
-  markers: any = [];
   geocoder = new google.maps.Geocoder;
   markerLocation;
   locationValue = '';
@@ -44,6 +43,8 @@ export class AddRestaurantComponent implements OnInit, AfterViewInit {
   restaurantForm: FormGroup;
   rating: Rating;
   userPosition: google.maps.LatLng;
+  clickListener: any;
+  subscription: any;
   constructor(
     private mapService: MapService, 
     private geolocationService: GeolocationService, 
@@ -53,7 +54,9 @@ export class AddRestaurantComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.restaurantForm;
     this.map = this.mapService.getMap();
-    this.userPosition = this.mapService.getLatLngPosition();
+    this.subscription = this.mapService.getLatLngPosition().subscribe(position => {
+      this.userPosition = position
+    });
     this.map.setCenter(this.userPosition);
     this.types = typesList;
     this.isConfirmation = false;
@@ -68,6 +71,11 @@ export class AddRestaurantComponent implements OnInit, AfterViewInit {
     this.autocomplete.addListener('place_changed', () => {
       this.onLocationClick();
     });
+  }
+
+  ngOnDestroy() {
+    google.maps.event.removeListener(this.clickListener);
+    this.subscription.unsubscribe();
   }
 
   initForm() {
@@ -115,10 +123,9 @@ export class AddRestaurantComponent implements OnInit, AfterViewInit {
   }
 
   onMapClick() {
-    this.map.addListener('click', (e) => {
+    this.clickListener = this.map.addListener('click', (e) => {
       this.addMarker(e.latLng);
     });
-
   }
 
   onLocationClick() {
@@ -140,14 +147,17 @@ export class AddRestaurantComponent implements OnInit, AfterViewInit {
       position: location,
       cursor: 'pointer'
     });
+    this.mapService.setMarkers(this.marker);
     this.getAddressFromCoordinates(location);
   }
 
   getAddressFromCoordinates(location) {
     this.markerLocation = { lat: parseFloat(location.lat()), lng: parseFloat(location.lng()) };
     this.geocoder.geocode({ 'location': this.markerLocation }, (results, status) => {
-      if (results[0]) {
+      if (results && results[0].formatted_address) {
         this.locationValue = results[0].formatted_address;
+      } else {
+        alert("Nous n'avons pas bien compris où est ce restaurant, merci de retenter")
       }
     });
   }
@@ -155,9 +165,4 @@ export class AddRestaurantComponent implements OnInit, AfterViewInit {
   setRating(e) {
     this.locationRating = e;
   }
-
-  clearMap() {
-    this.markers = [];
-  }
-
 }

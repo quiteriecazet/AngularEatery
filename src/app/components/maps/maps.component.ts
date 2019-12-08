@@ -14,8 +14,6 @@ import { of, Observable } from 'rxjs';
 
 export class MapsComponent implements OnInit {
   map;
-  marker;
-  markers: any = [];
 
   @ViewChild('gmap') gmapElement: any;
   position: any;
@@ -25,7 +23,7 @@ export class MapsComponent implements OnInit {
   ngOnInit() {
     this.map = new google.maps.Map(document.getElementById('gmap'), {
       center: { lat: 40.8534, lng: 6.3488 },
-      zoom: 14
+      zoom: 12
     });
   }
 
@@ -37,18 +35,6 @@ export class MapsComponent implements OnInit {
     });
     return of(this.position);
   };
-
-  clearMap(markers?, selectedResType?) {
-    if (markers && markers.length > 0) {
-      for (let i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
-      }
-    }
-    markers = [];
-    if (selectedResType) {
-      selectedResType = null;
-    }
-  }
 
   openSnackBar(message: string, action: string) {
     const config = new MatSnackBarConfig();
