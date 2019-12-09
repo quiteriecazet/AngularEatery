@@ -89,11 +89,12 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
     google.maps.event.clearListeners(this.map, 'dragend');
     google.maps.event.removeListener(this.dragListener);
     this.subscription ? this.subscription.unsubscribe() : null;
-    this.positionSubscription.unsubscribe();
+    this.positionSubscription ? this.positionSubscription.unsubscribe() : null;
     this.clearMap();
   }
 
   clearMap() {
+    this.mapService.clearMap();
     this.selectedRes = [];
     this.selectedRestaurantType = null;
     this.hasResults = false;
@@ -106,8 +107,11 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
   }
 
   displayRestaurants(type?) {
+    if (type == 'fromDB') {
+    this.map.setZoom(13);
+    }
     if (this.isDragged) {
-      !this.isDragged;
+      this.isDragged = false;
     }
     this.type = type;
     this.getSelectedRestaurants();
@@ -221,9 +225,10 @@ export class SelectedRestaurantsComponent implements OnInit, OnDestroy {
       pov: {
         heading: 34,
         pitch: 10
-      }
+      },
+      motionTracking: false,
+      motionTrackingControl: false
     });
-    this.map.setStreetView(this.panorama);
   }
 
   recenterMap() {

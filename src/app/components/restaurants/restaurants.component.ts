@@ -23,7 +23,7 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['./restaurants.component.scss']
 })
 
-export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges {
+export class RestaurantsComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild(MapsComponent)
   private mapsComponent: MapsComponent;
@@ -43,15 +43,15 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
   bounds;
   map;
   photo;
-  service
+  service;
   selectedRestaurant;
   inputRestaurant;
   autocomplete;
   inputResult: any;
   value: string;
   options = {
-    types: ["establishment"]
-  }
+    types: ['establishment']
+  };
   userPosition: google.maps.LatLng;
   subscription: any;
   constructor(private restaurantService: RestaurantService, private mapService: MapService,
@@ -62,7 +62,7 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
   ngAfterViewInit() {
     this.map = this.mapService.getMap();
     this.subscription = this.mapService.getLatLngPosition().subscribe(position => {
-      this.userPosition = position
+      this.userPosition = position;
     });
     this.map.setCenter(this.userPosition);
     this.service = new google.maps.places.PlacesService(this.map);
@@ -74,24 +74,15 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
     this.subscription.unsubscribe();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.autocomplete.addListener('place_changed', () => {
-      this.inputResult = this.autocomplete.getPlace();
-      if (this.inputResult.geometry) {
-        this.getDetails(this.inputResult);
-      }
-    });
-  }
-
   activateAutocomplete() {
-    this.inputRestaurant = document.getElementById('location');
+    this.inputRestaurant = document.getElementById('restaurantLocation');
     this.autocomplete = new google.maps.places.Autocomplete(this.inputRestaurant, this.options);
     this.autocomplete.addListener('place_changed', () => {
       this.inputResult = this.autocomplete.getPlace();
       if (this.inputResult.geometry) {
         this.showDetails = true;
         this.selectedRestaurant = this.inputResult;
-        this.value = "";
+        this.value = '';
         this.displaySelectedRestaurant();
       }
     });
@@ -188,7 +179,7 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
         cursor: 'pointer'
       });
       this.map.setCenter(this.selectedRestaurant.geometry.location);
-    };
+    }
     this.restaurantService.getRestaurantDetails(this.selectedRestaurant);
   }
 
@@ -246,7 +237,7 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy, OnChanges
     this.map.setCenter(this.userPosition);
     setTimeout(() => {
       this.activateAutocomplete();
-    }, 1000)
+    }, 1000);
   }
 
 }

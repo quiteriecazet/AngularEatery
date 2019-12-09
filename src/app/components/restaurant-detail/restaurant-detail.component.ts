@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, OnDestroy } from '@angular/core';
 import { Restaurant, restaurantsList } from '../../restaurant';
 import { RestaurantService } from '../../services/restaurant/restaurant.service';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +11,7 @@ import { MatProgressSpinnerModule, MatChipsModule } from '@angular/material';
   templateUrl: './restaurant-detail.component.html',
   styleUrls: ['./restaurant-detail.component.scss']
 })
-export class RestaurantDetailComponent implements OnInit {
+export class RestaurantDetailComponent implements OnInit, OnDestroy {
 
   @Input('selectedRestaurant') restaurant;
   subscription: Subscription;
@@ -20,9 +20,8 @@ export class RestaurantDetailComponent implements OnInit {
     this.subscription = restaurantService.restaurant.subscribe(
       restaurant => {
         this.restaurant = restaurant;
-        console.log(this.restaurant)
       }
-    )
+    );
   }
 
   ngOnInit() {

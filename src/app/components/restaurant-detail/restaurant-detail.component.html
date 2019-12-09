@@ -20,9 +20,9 @@
 
   <div class="restaurant-sub-infos">
       <mat-chip-list aria-label="Restaurant infos">
-          <mat-chip class="chip-first">{{restaurant.rating}}</mat-chip>
-          <mat-chip class="chip-second">{{restaurant.user_ratings_total}}</mat-chip>
-          <mat-chip class="chip-third"></mat-chip>
+          <mat-chip selected class="chip-first"> {{restaurant.rating}}{{'notation' | translate}}</mat-chip>
+          <mat-chip selected class="chip-second">{{restaurant.user_ratings_total}} {{'comments' | translate}}
+          </mat-chip>
         </mat-chip-list>
   </div>
   <mat-card *ngFor="let review of restaurant.reviews" class="comments">

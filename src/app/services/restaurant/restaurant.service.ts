@@ -10,11 +10,9 @@ import { restaurantsList, Restaurant } from '../../restaurant';
 export class RestaurantService {
   selectedRestaurants = restaurantsList;
   restaurant = new Subject<Object>();
-  pickedRestaurant = this.restaurant.asObservable();
 
   constructor() { }
 
-  
   public getSelectedRestaurants(): Observable<Restaurant[]> {
     return of(this.selectedRestaurants);
   }
