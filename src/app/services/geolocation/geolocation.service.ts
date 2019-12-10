@@ -17,9 +17,9 @@ export class GeolocationService {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         callback(position);
-      })
+      });
     } else {
-      return null;
+      return false;
     }
   }
 

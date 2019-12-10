@@ -56,7 +56,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   title = 'Eatery App';
 
-  ngOnInit() {   
+  ngOnInit() {
     this.isOpen = false;
     this.router.navigate(['']);
     this.mapsComponent.setGeolocation();
@@ -98,7 +98,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (result) {
         this.isGeolocated = false;
       }
-    })
+    });
   }
 
   setGeolocation() {
@@ -107,12 +107,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   openLegalMentions(): void {
-    this._bottomSheet.open(LegalMentionsSheet)
+    this._bottomSheet.open(LegalMentionsSheet);
   }
 
   displayRouterView(): void {
     this.isOpen = true;
-    console.log(this.isOpen)
   }
 }
 

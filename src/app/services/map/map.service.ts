@@ -25,21 +25,33 @@ export class MapService {
     return this.map;
   }
 
-  setGeolocation(position?, geolocated?, map?) {
+  setGeolocation(position?, geolocated?, map?, hasChangedLocation?) {
     if (map) {
       this.map = map;
+      if (!position && geolocated === false) {
+        this.userPosition = this.map.center;
+      } else {
+      this.userPosition = position;
+      }
+      this.displayLocation(geolocated, hasChangedLocation);
     }
-    this.userPosition = position;
-    this.displayLocation();
   }
 
-  displayLocation() {
-    if (this.userPosition.coords) {
+  displayLocation(geolocated, hasChangedLocation) {
+    if (this.userPosition && this.userPosition.coords) {
       this.LatLngPosition = new google.maps.LatLng(this.userPosition.coords.latitude, this.userPosition.coords.longitude);
     } else {
       this.LatLngPosition = this.userPosition;
     }
-    this.openSnackBar('Nous vous avons trouvé!', 'Fermer')
+
+    if (geolocated) {
+      this.openSnackBar('Nous vous avons trouvé!', 'Fermer');
+    } else if (geolocated === false && hasChangedLocation === false) {
+      // tslint:disable-next-line: max-line-length
+      this.openSnackBar('Nous n\'avons pas pu vous géolocaliser pour le moment, la vue par défaut est à Paris, vous pourrez changer cela à tout moment.', 'Fermer');
+    } else if (geolocated === false && hasChangedLocation === true) {
+      this.openSnackBar('Vous pouvez désormais rechercher des restaurants depuis cette localisation!', 'Fermer');
+    }
     this.clearMap();
     this.map.setCenter(this.LatLngPosition);
     this.getLatLngPosition();
@@ -70,12 +82,12 @@ export class MapService {
         if (result) {
           this.address = result.formatted_address;
           this.userPosition = result.geometry.location;
-          this.setGeolocation(this.userPosition, false);
+          this.setGeolocation(this.userPosition, false, this.map, true);
         }
         return result;
       }).catch((error) => {
         return null;
-      })
+      });
   }
 
   getGeolocation() {

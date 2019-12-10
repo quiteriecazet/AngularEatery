@@ -54,6 +54,7 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy {
   };
   userPosition: google.maps.LatLng;
   subscription: any;
+  newSearch: any;
   constructor(private restaurantService: RestaurantService, private mapService: MapService,
     private geolocationService: GeolocationService, private route: ActivatedRoute,
     private _ngZone: NgZone) {
@@ -72,6 +73,7 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    google.maps.event.removeListener(this.newSearch);
   }
 
   activateAutocomplete() {
@@ -131,7 +133,7 @@ export class RestaurantsComponent implements AfterViewInit, OnDestroy {
       }
     });
 
-    this.map.addListener('dragend', () => {
+    this.newSearch = this.map.addListener('dragend', () => {
       window.setTimeout(() => {
         let lat = this.map.getCenter().lat();
         let lng = this.map.getCenter().lng();

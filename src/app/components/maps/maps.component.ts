@@ -13,16 +13,17 @@ import { of, Observable } from 'rxjs';
 })
 
 export class MapsComponent implements OnInit {
-  map;
+  map: google.maps.Map;
 
   @ViewChild('gmap') gmapElement: any;
   position: any;
 
-  constructor(private route: ActivatedRoute, public snackBar: MatSnackBar, private mapService: MapService, private geolocationService: GeolocationService) { }
+  constructor(private route: ActivatedRoute, public snackBar: MatSnackBar, private mapService: MapService, 
+  private geolocationService: GeolocationService) { }
 
   ngOnInit() {
     this.map = new google.maps.Map(document.getElementById('gmap'), {
-      center: { lat: 40.8534, lng: 6.3488 },
+      center: { lat: 48.870186, lng: 2.340815},
       zoom: 12
     });
   }
@@ -30,11 +31,16 @@ export class MapsComponent implements OnInit {
   setGeolocation(): Observable<any> {
     this.geolocationService.getGeolocation(position => {
       this.openSnackBar('Nous vous avons trouvé!', 'Fermer');
-      this.mapService.setGeolocation(position, true, this.map);
       this.position = position;
+      this.mapService.setGeolocation(this.position, true, this.map, false);
     });
+    window.setTimeout(() => {
+      if (!this.position) {
+        this.mapService.setGeolocation(null, false, this.map, false);
+      }
+    }, 2000);
     return of(this.position);
-  };
+  }
 
   openSnackBar(message: string, action: string) {
     const config = new MatSnackBarConfig();
